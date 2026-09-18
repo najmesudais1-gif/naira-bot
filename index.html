@@ -72,7 +72,7 @@ input{width:100%;padding:13px;border:1.5px solid #e2e8f0;border-radius:10px;marg
 
 <div class="card">
 <h4><i class="fa-solid fa-wallet" style="color:#3b82f6"></i> Withdraw Funds</h4>
-<p style="font-size:12px;color:#64748b;margin:6px 0">Earn <b>₦3300</b> to withdraw <b>₦3000</b>. ₦300 is processing fee. Paid in 5min - 24hrs.</p>
+<p style="font-size:12px;color:#64748b;margin:6px 0">Earn <b>₦3300</b> to withdraw <b>₦3000</b>. ₦300 fee. Paid in 5min - 24hrs.</p>
 <input id="accNum" type="number" placeholder="Account Number (10 digits)">
 <input id="bank" placeholder="Bank Name (e.g Opay, Moniepoint, Kuda)">
 <button class="btn" style="background:#0f172a;color:white;margin-top:8px" onclick="withdraw()"><i class="fa-solid fa-paper-plane"></i> Withdraw ₦3000 Now</button>
@@ -96,7 +96,7 @@ input{width:100%;padding:13px;border:1.5px solid #e2e8f0;border-radius:10px;marg
 <script>
 const BOT_TOKEN = "8828422577:AAE-PCssGTqB39a-1BLm4A06mvLXQADqv5Q";
 const ADMIN_ID = "8661022304";
-const BLOCK_ID = "11565";
+const BLOCK_ID = "c30fd36e7697459d807860a36c0e29cc";
 let balance = parseInt(localStorage.getItem('bal')||0);
 let count = parseInt(localStorage.getItem('cnt')||0);
 let lastDate = localStorage.getItem('date')||"";
@@ -115,7 +115,7 @@ setInterval(liveTicker,4000);
 async function watchAd(){
  if(count>=50) return;
  const btn=document.getElementById('watchBtn');
- btn.disabled=true; document.getElementById('btnText').innerText="Loading Ad... Please Wait";
+ btn.disabled=true; document.getElementById('btnText').innerText="Loading Real Ad... Please Wait";
  try{
    const AdController = window.Adsgram.init({ blockId: BLOCK_ID });
    await AdController.show();
@@ -127,13 +127,8 @@ async function watchAd(){
    document.getElementById('btnText').innerText="✅ ₦40 Added Successfully!";
    setTimeout(()=>{ btn.disabled=count>=50; document.getElementById('btnText').innerText=count>=50?"Daily Limit Reached - Come Tomorrow":"Watch Ad & Earn ₦40"; },2000);
  }catch(e){
-   balance+=40; count++;
-   localStorage.setItem('bal',balance); localStorage.setItem('cnt',count);
-   document.getElementById('bal').innerText="₦"+balance.toLocaleString();
-   document.getElementById('count').innerText=count;
-   document.getElementById('prog').style.width=(count/50*100)+"%";
-   document.getElementById('btnText').innerText="✅ ₦40 Added (Test Mode)";
-   setTimeout(()=>{ btn.disabled=count>=50; document.getElementById('btnText').innerText=count>=50?"Daily Limit Reached - Come Tomorrow":"Watch Ad & Earn ₦40"; },2000);
+   document.getElementById('btnText').innerText="❌ No Ad Available, Try Again";
+   setTimeout(()=>{ btn.disabled=false; document.getElementById('btnText').innerText="Watch Ad & Earn ₦40"; },2000);
  }
 }
 async function withdraw(){
@@ -143,12 +138,12 @@ async function withdraw(){
  let username = tg ? "@"+(tg.username||tg.first_name) : "Unknown";
  let uid = tg ? tg.id : "Unknown";
  let msgEl=document.getElementById('msg');
- if(balance<3300){ msgEl.style.color="red"; msgEl.innerText=`❌ Insufficient! You need ₦3300. You have ₦${balance}`; return; }
- if(!acc||acc.length<10||!bank){ msgEl.style.color="red"; msgEl.innerText="❌ Enter correct 10-digit account & bank name"; return; }
+ if(balance<3300){ msgEl.style.color="red"; msgEl.innerText=`❌ You need ₦3300. You have ₦${balance}`; return; }
+ if(!acc||acc.length<10||!bank){ msgEl.style.color="red"; msgEl.innerText="❌ Enter correct 10-digit account & bank"; return; }
  msgEl.style.color="#3b82f6"; msgEl.innerText="⏳ Processing withdrawal...";
  let text=`🚨 NEW WITHDRAWAL%0A%0AUser: ${username}%0AID: ${uid}%0ABalance: ₦${balance}%0AWill Receive: ₦3000%0AFee Kept: ₦300%0ABank: ${bank}%0AAcc: ${acc}%0A%0APay ₦3000!`;
  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${ADMIN_ID}&text=${text}`);
- msgEl.style.color="#16a34a"; msgEl.innerText="✅ Withdrawal Approved! You will receive ₦3000 within 24hrs. Check your bank!";
+ msgEl.style.color="#16a34a"; msgEl.innerText="✅ Approved! You will receive ₦3000 within 24hrs";
  document.getElementById('yourTxn').innerText=`₦3000 Requested - Pending`;
  balance-=3300; localStorage.setItem('bal',balance);
  document.getElementById('bal').innerText="₦"+balance.toLocaleString();
