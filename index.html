@@ -27,7 +27,7 @@ input{width:90%;padding:12px;border-radius:8px;border:none;margin:5px}
 <p style="font-size:11px;color:#94a3b8">Watch full ad, 50 ads/day limit</p>
 </div>
 <div class="card">
-<h3>Withdraw - Min ₦3000</h3>
+<h3>Withdraw - Min ₦200</h3>
 <input id="accNum" placeholder="Account Number">
 <input id="bank" placeholder="Bank Name (Opay, Kuda...)">
 <button class="btn" style="background:#3b82f6" onclick="withdraw()">Request Withdrawal</button>
@@ -75,7 +75,7 @@ async function withdraw(){
  let tg = window.Telegram?.WebApp?.initDataUnsafe?.user;
  let username = tg ? "@"+(tg.username||tg.first_name) : "Unknown";
  let uid = tg ? tg.id : "Unknown";
- if(balance<3000){ document.getElementById('msg').innerText="❌ Minimum ₦3000 needed!"; return; }
+ if(balance<200){ document.getElementById('msg').innerText="❌ Minimum ₦200 needed!"; return; }
  if(!acc||!bank){ document.getElementById('msg').innerText="❌ Fill account details!"; return; }
  let text=`🚨 NEW WITHDRAWAL%0A%0AUser: ${username}%0AID: ${uid}%0AAmount: ₦${balance}%0ABank: ${bank}%0AAcc: ${acc}%0A%0ACheck and Pay!`;
  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${ADMIN_ID}&text=${text}`);
