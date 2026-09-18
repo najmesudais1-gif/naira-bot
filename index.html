@@ -1,152 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Naira Ads - Trusted Earning Platform</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Naira Ads</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial}
-body{background:#f1f5f9;color:#0f172a;padding-bottom:90px}
-.header{background:linear-gradient(135deg,#0f172a,#1e40af);color:white;padding:20px 16px 25px;border-radius:0 0 25px 25px}
-.top-bar{display:flex;justify-content:space-between;align-items:center}
-.logo{font-weight:800;font-size:20px}
-.verified{background:#22c55e;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:bold}
-.bal-card{background:white;margin:-35px 16px 15px;padding:20px;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.1);text-align:center}
-.bal-label{color:#64748b;font-size:13px}
-.bal-value{font-size:42px;font-weight:900;color:#0f172a;margin:5px 0}
-.bal-sub{color:#22c55e;font-weight:700;font-size:14px}
-.stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:0 16px 15px}
-.stat{background:white;padding:12px;border-radius:14px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)}
-.stat b{font-size:16px;display:block}
-.stat span{font-size:11px;color:#64748b}
-.card{background:white;margin:0 16px 15px;padding:18px;border-radius:16px;box-shadow:0 2px 15px rgba(0,0,0,.06)}
-.progress-bg{background:#e2e8f0;height:10px;border-radius:10px;overflow:hidden;margin:10px 0}
-.progress{height:100%;background:linear-gradient(90deg,#22c55e,#16a34a);width:0%;transition:.5s}
-.btn{border:none;width:100%;padding:16px;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px}
-.btn-watch{background:linear-gradient(135deg,#22c55e,#16a34a);color:white;box-shadow:0 8px 20px rgba(34,197,94,.3)}
-.btn:disabled{background:#94a3b8;box-shadow:none}
-.live{font-size:12px;background:#fef3c7;padding:10px 12px;border-radius:10px;margin-top:10px;border-left:4px solid #f59e0b}
-.txn{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f1f5f9;font-size:13px}
-.badge{background:#dcfce7;color:#16a34a;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700}
-input{width:100%;padding:13px;border:1.5px solid #e2e8f0;border-radius:10px;margin:8px 0;font-size:14px}
-.trust{display:flex;gap:8px;overflow-x:auto;padding:5px 0}
-.trust-item{background:#f8fafc;border:1px solid #e2e8f0;padding:8px 12px;border-radius:20px;font-size:11px;white-space:nowrap}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{background:#0a0e14;color:#fff;padding-bottom:90px}
+.card{margin:15px;background:#151c26;border-radius:18px;padding:18px;border:1px solid #1f2a38}
+.btn{width:100%;padding:16px;border:none;border-radius:14px;font-weight:800;font-size:16px;cursor:pointer}
+.balance{background:linear-gradient(135deg,#00ff88,#00cc6a);color:#0a0e14;border-radius:24px;padding:22px;margin:15px;position:relative;overflow:hidden}
 </style>
 </head>
 <body>
-<div class="header">
-<div class="top-bar">
-<div class="logo"><i class="fa-solid fa-naira-sign"></i> NAIRA ADS</div>
-<div class="verified"><i class="fa-solid fa-circle-check"></i> VERIFIED</div>
-</div>
-<p style="font-size:12px;opacity:.8;margin-top:8px">Trusted by 17,420+ Nigerians • Since 2024</p>
+
+<div style="padding:20px;display:flex;justify-content:space-between">
+  <b id="username">👋 Welcome Boss</b>
+  <span style="background:#1c2530;padding:6px 12px;border-radius:20px;font-size:12px">🔥 <span id="adsCount">0</span> Ads</span>
 </div>
 
-<div class="bal-card">
-<div class="bal-label">AVAILABLE BALANCE</div>
-<div class="bal-value" id="bal">₦0</div>
-<div class="bal-sub"><span id="count">0</span>/50 Ads Watched Today • ₦40 per Ad</div>
-<div class="progress-bg"><div class="progress" id="prog"></div></div>
+<div class="balance">
+  <div style="font-size:12px;opacity:0.7;font-weight:700">TOTAL BALANCE</div>
+  <div style="font-size:36px;font-weight:900;margin-top:5px">₦<span id="balance">0</span></div>
+  <div style="font-size:12px;margin-top:5px;background:rgba(0,0,0,0.15);display:inline-block;padding:4px 10px;border-radius:20px">≈ $<span id="usd">0.00</span> • Unit 48566 Active</div>
 </div>
 
-<div class="stats">
-<div class="stat"><b>₦2.4M+</b><span>Total Paid</span></div>
-<div class="stat"><b>17,420</b><span>Active Users</span></div>
-<div class="stat"><b>98.9%</b><span>Success Rate</span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:15px">
+  <div class="card" style="margin:0;text-align:center;padding:12px"><div>🎬</div><b id="statAds">0</b><div style="font-size:11px;opacity:0.6">Watched</div></div>
+  <div class="card" style="margin:0;text-align:center;padding:12px"><div>💵</div><b>₦<span id="statEarn">0</span></b><div style="font-size:11px;opacity:0.6">Today</div></div>
+  <div class="card" style="margin:0;text-align:center;padding:12px"><div>👥</div><b>0</b><div style="font-size:11px;opacity:0.6">Referrals</div></div>
 </div>
 
 <div class="card">
-<h4 style="margin-bottom:10px"><i class="fa-solid fa-play" style="color:#22c55e"></i> Daily Task</h4>
-<button class="btn btn-watch" id="watchBtn" onclick="watchAd()"><i class="fa-solid fa-circle-play"></i> <span id="btnText">Watch Ad & Earn ₦40</span></button>
-<div class="live"><i class="fa-solid fa-circle" style="color:#22c55e;font-size:8px"></i> <span id="liveText">Fatima from Lagos just withdrew ₦3000</span></div>
-<div class="trust">
-<div class="trust-item">🔒 CBN Secured</div>
-<div class="trust-item">⚡ Instant Payment</div>
-<div class="trust-item">✅ No Investment</div>
-<div class="trust-item">🇳🇬 Made for Nigeria</div>
-</div>
+  <div style="display:flex;justify-content:space-between;margin-bottom:12px"><h3>Watch & Earn</h3><span style="background:#00ff8820;color:#00ff88;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700">+₦10 / Ad</span></div>
+  <button id="watchBtn" class="btn" style="background:linear-gradient(135deg,#00ff88,#00cc6a);color:#0a0e14" onclick="showAd()">▶️ WATCH AD - EARN ₦10</button>
+  <div style="font-size:11px;opacity:0.5;text-align:center;margin-top:10px">Block int-48566 • Real USD Earning</div>
 </div>
 
 <div class="card">
-<h4><i class="fa-solid fa-wallet" style="color:#3b82f6"></i> Withdraw Funds</h4>
-<p style="font-size:12px;color:#64748b;margin:6px 0">Earn <b>₦3300</b> to withdraw <b>₦3000</b>. ₦300 fee. Paid in 5min - 24hrs.</p>
-<input id="accNum" type="number" placeholder="Account Number (10 digits)">
-<input id="bank" placeholder="Bank Name (e.g Opay, Moniepoint, Kuda)">
-<button class="btn" style="background:#0f172a;color:white;margin-top:8px" onclick="withdraw()"><i class="fa-solid fa-paper-plane"></i> Withdraw ₦3000 Now</button>
-<p id="msg" style="font-size:12px;margin-top:10px;text-align:center;font-weight:700"></p>
+  <h3 style="margin-bottom:10px">👥 Refer & Earn ₦100</h3>
+  <p style="font-size:12px;opacity:0.7;margin-bottom:8px">Share link & earn 10% of friends earning</p>
+  <div style="background:#0a0e14;padding:10px;border-radius:10px;font-size:11px;word-break:break-all" id="refLink">https://t.me/First_Naira_ads_bot/app</div>
 </div>
 
-<div class="card">
-<h4 style="font-size:14px"><i class="fa-solid fa-clock-rotate-left"></i> Recent Payouts</h4>
-<div class="txn"><span>🥇 Chinedu O. • Opay •••• 4521</span><span class="badge">₦3000 Paid</span></div>
-<div class="txn"><span>🥈 Aisha M. • Kuda •••• 8890</span><span class="badge">₦3000 Paid</span></div>
-<div class="txn"><span>🥉 Emeka J. • Moniepoint •••• 1123</span><span class="badge">₦3000 Paid</span></div>
-<div class="txn"><span>⭐ You • Your Bank</span><span style="font-size:11px;color:#94a3b8" id="yourTxn">No withdrawals yet</span></div>
-</div>
-
-<div class="card" style="background:#0f172a;color:white;text-align:center">
-<p style="font-size:12px;opacity:.7">Need Help?</p>
-<p style="font-weight:700;margin:5px 0"><i class="fa-brands fa-telegram"></i> @NairaAds_Support</p>
-<p style="font-size:10px;opacity:.5;margin-top:10px">© 2026 Naira Ads Platform • Licensed Earning Partner of Adsgram & Telegram</p>
+<div style="position:fixed;bottom:0;left:0;right:0;background:#0f141e;border-top:1px solid #1f2a38;display:flex;justify-content:space-around;padding:10px 0 20px">
+  <div style="text-align:center;color:#00ff88"><div>🏠</div><div style="font-size:10px">Home</div></div>
+  <div style="text-align:center;opacity:0.5"><div>💳</div><div style="font-size:10px">Withdraw</div></div>
+  <div style="text-align:center;opacity:0.5"><div>🏆</div><div style="font-size:10px">Top</div></div>
 </div>
 
 <script>
-const BOT_TOKEN = "8828422577:AAE-PCssGTqB39a-1BLm4A06mvLXQADqv5Q";
-const ADMIN_ID = "8661022304";
-const BLOCK_ID = "c30fd36e7697459d807860a36c0e29cc";
-let balance = parseInt(localStorage.getItem('bal')||0);
-let count = parseInt(localStorage.getItem('cnt')||0);
-let lastDate = localStorage.getItem('date')||"";
-let today = new Date().toDateString();
-if(lastDate !== today){ count=0; localStorage.setItem('cnt',0); localStorage.setItem('date',today); }
-document.getElementById('bal').innerText="₦"+balance.toLocaleString();
-document.getElementById('count').innerText=count;
-document.getElementById('prog').style.width=(count/50*100)+"%";
-if(count>=50){ document.getElementById('watchBtn').disabled=true; document.getElementById('btnText').innerText="Daily Limit Reached - Come Tomorrow"; }
-function liveTicker(){
- const names=["Fatima from Lagos","Chinedu from PH","Aisha from Kano","Emeka from Abuja","Blessing from Ibadan","Musa from Kaduna"];
- const n=names[Math.floor(Math.random()*names.length)];
- document.getElementById('liveText').innerText=`${n} just withdrew ₦3000 • ${new Date().toLocaleTimeString()}`;
+let balance = parseInt(localStorage.getItem('bal')||'0')
+let ads = parseInt(localStorage.getItem('ads')||'0')
+let cooldown = 0
+const tg = window.Telegram?.WebApp
+
+if(tg){tg.ready();tg.expand(); if(tg.initDataUnsafe?.user){document.getElementById('username').innerText='👋 '+tg.initDataUnsafe.user.first_name; document.getElementById('refLink').innerText='https://t.me/First_Naira_ads_bot/app?startapp=ref_'+tg.initDataUnsafe.user.id}}
+
+function updateUI(){
+  document.getElementById('balance').innerText=balance.toLocaleString()
+  document.getElementById('usd').innerText=(balance/1550).toFixed(3)
+  document.getElementById('adsCount').innerText=ads
+  document.getElementById('statAds').innerText=ads
+  document.getElementById('statEarn').innerText=ads*10
+  localStorage.setItem('bal',balance)
+  localStorage.setItem('ads',ads)
 }
-setInterval(liveTicker,4000);
-async function watchAd(){
- if(count>=50) return;
- const btn=document.getElementById('watchBtn');
- btn.disabled=true; document.getElementById('btnText').innerText="Loading Real Ad... Please Wait";
- try{
-   const AdController = window.Adsgram.init({ blockId: BLOCK_ID });
-   await AdController.show();
-   balance+=40; count++;
-   localStorage.setItem('bal',balance); localStorage.setItem('cnt',count);
-   document.getElementById('bal').innerText="₦"+balance.toLocaleString();
-   document.getElementById('count').innerText=count;
-   document.getElementById('prog').style.width=(count/50*100)+"%";
-   document.getElementById('btnText').innerText="✅ ₦40 Added Successfully!";
-   setTimeout(()=>{ btn.disabled=count>=50; document.getElementById('btnText').innerText=count>=50?"Daily Limit Reached - Come Tomorrow":"Watch Ad & Earn ₦40"; },2000);
- }catch(e){
-   document.getElementById('btnText').innerText="❌ No Ad Available, Try Again";
-   setTimeout(()=>{ btn.disabled=false; document.getElementById('btnText').innerText="Watch Ad & Earn ₦40"; },2000);
- }
-}
-async function withdraw(){
- let acc=document.getElementById('accNum').value;
- let bank=document.getElementById('bank').value;
- let tg = window.Telegram?.WebApp?.initDataUnsafe?.user;
- let username = tg ? "@"+(tg.username||tg.first_name) : "Unknown";
- let uid = tg ? tg.id : "Unknown";
- let msgEl=document.getElementById('msg');
- if(balance<3300){ msgEl.style.color="red"; msgEl.innerText=`❌ You need ₦3300. You have ₦${balance}`; return; }
- if(!acc||acc.length<10||!bank){ msgEl.style.color="red"; msgEl.innerText="❌ Enter correct 10-digit account & bank"; return; }
- msgEl.style.color="#3b82f6"; msgEl.innerText="⏳ Processing withdrawal...";
- let text=`🚨 NEW WITHDRAWAL%0A%0AUser: ${username}%0AID: ${uid}%0ABalance: ₦${balance}%0AWill Receive: ₦3000%0AFee Kept: ₦300%0ABank: ${bank}%0AAcc: ${acc}%0A%0APay ₦3000!`;
- await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${ADMIN_ID}&text=${text}`);
- msgEl.style.color="#16a34a"; msgEl.innerText="✅ Approved! You will receive ₦3000 within 24hrs";
- document.getElementById('yourTxn').innerText=`₦3000 Requested - Pending`;
- balance-=3300; localStorage.setItem('bal',balance);
- document.getElementById('bal').innerText="₦"+balance.toLocaleString();
+updateUI()
+
+async function showAd(){
+  if(cooldown>0)return
+  const btn=document.getElementById('watchBtn')
+  btn.innerText='Loading Ad...'
+  btn.disabled=true
+  try{
+    const AdController = window.Adsgram.init({ blockId: "int-48566" })
+    const result = await AdController.show()
+    if(result.done){
+      balance+=10; ads++; cooldown=15; updateUI()
+      alert('✅ You earned ₦10!')
+      let c=15
+      const timer=setInterval(()=>{c--;btn.innerText=`Wait ${c}s`;if(c<=0){clearInterval(timer);btn.innerText='▶️ WATCH AD - EARN ₦10';btn.disabled=false;cooldown=0}},1000)
+    }else{btn.innerText='▶️ WATCH AD - EARN ₦10';btn.disabled=false;alert('Ad not ready, try again')}
+  }catch(e){btn.innerText='▶️ WATCH AD - EARN ₦10';btn.disabled=false;alert('No ads now, try later')}
 }
 </script>
 </body>
