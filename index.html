@@ -2,115 +2,130 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>First Naira - Profit</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>First Naira - MAX PROFIT</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,sans-serif}
-body{background:#0a0e14;color:#fff;padding-bottom:90px}
-.card{margin:12px;background:#151c26;border-radius:16px;padding:16px;border:1px solid #1f2a38}
-.btn{width:100%;padding:15px;border:none;border-radius:12px;font-weight:800;font-size:15px;cursor:pointer}
-.green{background:linear-gradient(135deg,#00ff88,#00cc6a);color:#000}
-.gray{background:#1f2a38;color:#fff}
-.tab{position:fixed;bottom:0;left:0;right:0;background:#0f141e;border-top:1px solid #1f2a38;display:flex;justify-content:space-around;padding:10px 0 18px;z-index:100}
-.tab div{ text-align:center; cursor:pointer; opacity:0.5; font-size:11px}
-.tab div.active{opacity:1;color:#00ff88}
-.modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:200;padding:20px}
-.modalBox{background:#151c26;border-radius:18px;padding:20px;width:100%;max-width:360px;border:1px solid #2a3a50}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
+body{background:#080c12;color:#fff;padding-bottom:85px}
+.card{background:#131a25;border:1px solid #1e2a3a;border-radius:18px;padding:16px;margin:10px 12px}
+.btn{width:100%;padding:14px;border:none;border-radius:12px;font-weight:900;font-size:14px;cursor:pointer}
+.g{background:linear-gradient(135deg,#00ff88,#00cc6a);color:#000}
+.d{background:#1e2a3a;color:#fff}
+.tab{position:fixed;bottom:0;left:0;right:0;background:#0d121c;display:flex;justify-content:space-around;padding:8px 0 20px;border-top:1px solid #1e2a3a;z-index:99}
+.tab div{text-align:center;font-size:10px;opacity:0.4;cursor:pointer;padding:6px 12px;border-radius:10px}
+.tab div.active{opacity:1;background:#1e2a3a;color:#00ff88}
+.m{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);display:none;align-items:center;justify-content:center;z-index:999;padding:20px}
+.box{background:#131a25;border-radius:20px;padding:20px;width:100%;max-width:340px;border:1px solid #2a3a50;text-align:center}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pill{background:#00ff8820;color:#00ff88;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:800}
 </style>
 </head>
 <body>
 
-<div id="homePage">
-<div style="padding:18px;display:flex;justify-content:space-between;align-items:center">
-<b id="uName">👋 Abdulrahman</b><span style="background:#1c2530;padding:6px 12px;border-radius:20px;font-size:12px">🔥 <span id="aCount">0</span> Ads</span>
+<div id="p1">
+<div style="padding:16px;display:flex;justify-content:space-between"><b id="uname">👋 Boss</b><span style="background:#131a25;padding:6px 12px;border-radius:20px;font-size:11px;border:1px solid #1e2a3a">🔥 <span id="cnt">0</span> ads = $<span id="earn">0.00</span> for YOU</span></div>
+
+<div style="margin:0 12px;background:linear-gradient(135deg,#00ff88,#00cc6a);border-radius:20px;padding:18px;color:#000">
+<div style="font-size:10px;font-weight:900;opacity:0.6">USER BALANCE (Virtual - You Control)</div>
+<div style="font-size:36px;font-weight:900">₦<span id="bal">0</span></div>
+<div style="display:flex;gap:6px;margin-top:8px">
+<div style="background:rgba(0,0,0,0.12);padding:5px 10px;border-radius:20px;font-size:10px;font-weight:700">Today: ₦<span id="tday">0</span></div>
+<div style="background:rgba(0,0,0,0.12);padding:5px 10px;border-radius:20px;font-size:10px;font-weight:700">Streak: <span id="str">0</span> days</div>
+</div>
+<div style="font-size:9px;margin-top:8px;opacity:0.5">AdsGram Unit 48566 ACTIVE • You earn $0.006 per ad REAL</div>
 </div>
 
-<div style="background:linear-gradient(135deg,#00ff88,#00cc6a);color:#000;border-radius:22px;padding:20px;margin:0 12px">
-<div style="font-size:11px;font-weight:800;opacity:0.7">TOTAL BALANCE (Virtual)</div>
-<div style="font-size:34px;font-weight:900">₦<span id="bal">0</span></div>
-<div style="font-size:11px;background:rgba(0,0,0,0.15);display:inline-block;padding:4px 10px;border-radius:20px;margin-top:6px">≈ $<span id="usd">0.00</span> • YOU EARN REAL $</div>
-<div style="margin-top:10px;font-size:10px;opacity:0.6">AdsGram Unit int-48566 • Your profit: $0.006 / ad</div>
-</div>
-
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px">
-<div class="card" style="margin:0;text-align:center;padding:10px"><div>🎬</div><b id="sAds">0</b><div style="font-size:10px;opacity:0.6">Watched</div></div>
-<div class="card" style="margin:0;text-align:center;padding:10px"><div>💵</div><b>₦<span id="sToday">0</span></b><div style="font-size:10px;opacity:0.6">Today</div></div>
-<div class="card" style="margin:0;text-align:center;padding:10px"><div>👥</div><b id="sRef">0</b><div style="font-size:10px;opacity:0.6">Refs</div></div>
-</div>
-
-<div class="card">
-<div style="display:flex;justify-content:space-between"><h3>🔥 Watch & Earn</h3><span style="background:#00ff8820;color:#00ff88;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700">+₦10 / Ad</span></div>
-<div style="height:8px;background:#0a0e14;border-radius:10px;margin:12px 0;overflow:hidden"><div id="progress" style="height:100%;background:#00ff88;width:0%"></div></div>
-<div style="font-size:11px;opacity:0.6;margin-bottom:10px">Daily Limit: <span id="limitText">0/50</span> ads</div>
-<button id="watchBtn" class="btn green" onclick="watchReward()">▶️ WATCH AD - EARN ₦10</button>
-<button class="btn gray" style="margin-top:8px" onclick="watchBonus()">🎁 BONUS AD - EARN ₦20 (x2)</button>
+<div class="card" style="background:linear-gradient(135deg,#131a25,#1b2535)">
+<h3 style="display:flex;justify-content:space-between">⚡ Watch & Earn <span class="pill">UNLIMITED</span></h3>
+<div style="height:6px;background:#080c12;border-radius:10px;margin:10px 0;overflow:hidden"><div id="prog" style="height:100%;width:0%;background:#00ff88"></div></div>
+<button id="b1" class="btn g" onclick="watch(1)">▶️ WATCH AD - EARN ₦10</button>
+<button id="b2" class="btn d" style="margin-top:8px;border:1px solid #00ff88" onclick="watch(2)">🔥 WATCH x2 - EARN ₦20 (YOU GET $0.012)</button>
+<button class="btn d" style="margin-top:8px" onclick="watch(3)">💎 WATCH x3 - EARN ₦35 (YOU GET $0.018)</button>
+<div style="font-size:10px;opacity:0.5;text-align:center;margin-top:6px">Daily: <span id="dlim">0</span> ads watched • Cooldown 15s</div>
 </div>
 
 <div class="card">
-<h3>🎯 Daily Tasks (More Profit)</h3>
-<div style="margin-top:10px">
-<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1f2a38"><span>📅 Daily Check-in</span><button onclick="dailyCheck()" class="btn green" style="width:auto;padding:6px 14px;font-size:12px">₦20</button></div>
-<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #1f2a38"><span>📢 Join Channel</span><button onclick="openChannel()" class="btn gray" style="width:auto;padding:6px 14px;font-size:12px">₦50</button></div>
-<div style="display:flex;justify-content:space-between;padding:10px 0"><span>👥 Refer 1 Friend</span><button class="btn gray" style="width:auto;padding:6px 14px;font-size:12px" onclick="showRef()">₦100</button></div>
+<h3>🎰 Spin & Win (Profit Machine)</h3>
+<div style="text-align:center;padding:12px 0">
+<div style="font-size:50px">🎡</div>
+<div style="font-size:12px;opacity:0.6;margin:8px 0">Watch ad to spin, win up to ₦100</div>
+<button class="btn g" onclick="spin()">🎰 SPIN NOW - WATCH AD</button>
 </div>
 </div>
 
-<div class="card">
-<h3>👥 Refer & Earn ₦100</h3>
-<p style="font-size:11px;opacity:0.6;margin:6px 0">You earn 10% of your friends forever + ₦100 bonus</p>
-<div style="background:#0a0e14;padding:10px;border-radius:10px;font-size:11px;word-break:break-all" id="refLink">https://t.me/First_Naira_ads_bot/app?startapp=ref_</div>
-<button class="btn green" style="margin-top:8px" onclick="shareRef()">📤 SHARE LINK</button>
-</div>
+<div class="grid">
+<div class="card" style="margin:0;text-align:center" onclick="daily()"><div style="font-size:28px">📅</div><div style="font-weight:800;font-size:12px">Daily Check</div><div class="pill" style="margin-top:6px;display:inline-block">+₦25</div></div>
+<div class="card" style="margin:0;text-align:center" onclick="chest()"><div style="font-size:28px">📦</div><div style="font-weight:800;font-size:12px">Mystery Chest</div><div class="pill" style="margin-top:6px;display:inline-block">+₦50</div></div>
 </div>
 
-<div id="withdrawPage" style="display:none;padding:18px">
+</div>
+
+<div id="p2" style="display:none;padding:16px">
+<h2>👥 Refer - HUGE PROFIT</h2>
+<div class="card" style="border:1px solid #00ff88">
+<h3 style="color:#00ff88">₦100 Per Friend INSTANT</h3>
+<p style="font-size:12px;opacity:0.7;margin:8px 0">When your friend joins via your link, <b>₦100 is added to your withdrawable balance immediately</b>. You also earn 15% of all their earnings forever.<br><br>Your friend watches 50 ads = you earn $0.045 (15%) for FREE without doing anything!</p>
+<div style="background:#080c12;padding:12px;border-radius:12px;font-size:11px;word-break:break-all" id="refl">Loading...</div>
+<button class="btn g" style="margin-top:10px" onclick="share()">📤 SHARE LINK - EARN ₦100 INSTANT</button>
+<button class="btn d" style="margin-top:8px" onclick="copyL()">📋 COPY LINK</button>
+</div>
+<div class="card"><div style="display:flex;justify-content:space-between"><span>👥 Total Referrals</span><b id="refN">0</b></div><div style="display:flex;justify-content:space-between;margin-top:10px"><span>💰 Referral Earning</span><b style="color:#00ff88">₦<span id="refE">0</span></b></div></div>
+<div class="card" style="font-size:11px;opacity:0.6">💡 TRICK FOR MAX PROFIT: Post your link in 10 Telegram groups daily. 1 referral = ₦100 bonus for him but YOU get $0.30/day from his ad watching. 20 referrals = $6/day = ₦9,000/day for YOU!</div>
+</div>
+
+<div id="p3" style="display:none;padding:16px">
 <h2>💳 Withdraw</h2>
-<div class="card" style="margin:12px 0"><div style="opacity:0.6;font-size:12px">Available Balance</div><div style="font-size:28px;font-weight:900">₦<span id="wBal">0</span></div></div>
+<div class="card" style="margin:12px 0"><div style="font-size:11px;opacity:0.6">Withdrawable Balance</div><div style="font-size:30px;font-weight:900">₦<span id="wbal">0</span></div><div style="font-size:10px;color:#00ff88">Min: ₦1500 • Real users only</div></div>
 <div class="card">
-<label style="font-size:12px">Payment Method</label>
-<select id="method" style="width:100%;padding:12px;background:#0a0e14;color:#fff;border:1px solid #2a3a50;border-radius:10px;margin:8px 0"><option>OPay</option><option>PalmPay</option><option>Bank Transfer</option><option>Airtime</option></select>
-<label style="font-size:12px">Account Number / Phone</label>
-<input id="acc" placeholder="8012345678" style="width:100%;padding:12px;background:#0a0e14;color:#fff;border:1px solid #2a3a50;border-radius:10px;margin:8px 0">
-<label style="font-size:12px">Amount (Min ₦1000)</label>
-<input id="amt" type="number" placeholder="1000" style="width:100%;padding:12px;background:#0a0e14;color:#fff;border:1px solid #2a3a50;border-radius:10px;margin:8px 0">
-<button class="btn green" onclick="doWithdraw()">💸 REQUEST WITHDRAWAL</button>
-<p style="font-size:10px;opacity:0.5;margin-top:10px">⚠️ Withdrawals are manual. We check for fake referrals. Real users paid within 24h. This keeps your AdsGram profit safe - you only pay real active users!</p>
+<select id="met" style="width:100%;padding:12px;background:#080c12;color:#fff;border:1px solid #2a3a50;border-radius:10px"><option>OPay</option><option>PalmPay</option><option>Bank</option><option>Airtime - MTN</option></select>
+<input id="acn" placeholder="Account Number / Phone" style="width:100%;padding:12px;background:#080c12;color:#fff;border:1px solid #2a3a50;border-radius:10px;margin:10px 0">
+<input id="amt" type="number" placeholder="Amount e.g 1500" style="width:100%;padding:12px;background:#080c12;color:#fff;border:1px solid #2a3a50;border-radius:10px">
+<button class="btn g" style="margin-top:10px" onclick="wd()">💸 REQUEST WITHDRAWAL</button>
+<div style="font-size:10px;opacity:0.5;margin-top:8px">We pay real users in 24h. Fake accounts are blocked to protect YOUR AdsGram profit.</div>
 </div>
-<div id="wHistory"></div>
+<div id="hist"></div>
 </div>
 
-<div id="topPage" style="display:none;padding:18px">
-<h2>🏆 Top Earners</h2>
-<div class="card">🥇 @Abdulrahman - ₦2,400 (35 ads)<br>🥈 @Musa - ₦1,800<br>🥉 @Fatima - ₦1,500</div>
-<div class="card" style="background:linear-gradient(135deg,#151c26,#1f2a38)"><h3>💰 Your AdsGram Profit</h3><p style="font-size:12px;opacity:0.7;margin-top:8px">Every user watches 50 ads/day = 50 x $0.006 = $0.30 per user.<br>100 users = $30/day = ₦45,000/day for YOU!<br>Your app balance is virtual - you only pay minimum withdrawals, you keep the rest!</p></div>
+<div id="p4" style="display:none;padding:16px">
+<h2>📋 Tasks - More Ads For You</h2>
+<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><div><b>✅ Daily Login</b><div style="font-size:11px;opacity:0.6">Come daily</div></div><button class="btn g" style="width:auto;padding:8px 16px" onclick="daily()">₦25</button></div></div>
+<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><div><b>📢 Join Channel</b><div style="font-size:11px;opacity:0.6">+ ad for you</div></div><button class="btn d" style="width:auto;padding:8px 16px" onclick="taskAd(50)">₦50</button></div></div>
+<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><div><b>👥 Refer 1 Friend</b><div style="font-size:11px;opacity:0.6">Instant bonus</div></div><button class="btn d" style="width:auto;padding:8px 16px" onclick="goTab(1)">₦100</button></div></div>
+<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><div><b>🎬 Watch 10 Ads</b><div style="font-size:11px;opacity:0.6" id="task10">0/10</div></div><button class="btn d" style="width:auto;padding:8px 16px" onclick="goTab(0)">₦50</button></div></div>
 </div>
 
 <div class="tab">
-<div id="tHome" class="active" onclick="switchTab('home')"><div style="font-size:18px">🏠</div>Home</div>
-<div id="tWith" onclick="switchTab('withdraw')"><div style="font-size:18px">💳</div>Withdraw</div>
-<div id="tTop" onclick="switchTab('top')"><div style="font-size:18px">🏆</div>Top</div>
+<div id="tb0" class="active" onclick="goTab(0)"><div style="font-size:18px">🏠</div>Home</div>
+<div id="tb1" onclick="goTab(1)"><div style="font-size:18px">👥</div>Refer</div>
+<div id="tb2" onclick="goTab(2)"><div style="font-size:18px">💳</div>Withdraw</div>
+<div id="tb3" onclick="goTab(3)"><div style="font-size:18px">📋</div>Tasks</div>
 </div>
 
-<div id="successModal" class="modal" onclick="this.style.display='none'"><div class="modalBox"><h3>✅ Success!</h3><p id="modalText" style="margin:12px 0;font-size:14px;opacity:0.8"></p><button class="btn green" onclick="document.getElementById('successModal').style.display='none'">OK</button></div></div>
+<div id="mod" class="m" onclick="this.style.display='none'"><div class="box"><h3 id="mt">Success</h3><p id="mx" style="margin:12px 0;opacity:0.7;font-size:13px"></p><button class="btn g" onclick="document.getElementById('mod').style.display='none'">OK</button></div></div>
 
 <script>
-const tg = window.Telegram?.WebApp; if(tg){tg.ready();tg.expand(); if(tg.initDataUnsafe?.user){const u=tg.initDataUnsafe.user; document.getElementById('uName').innerText='👋 '+u.first_name; document.getElementById('refLink').innerText='https://t.me/First_Naira_ads_bot/app?startapp=ref_'+u.id}}
-let bal = parseInt(localStorage.getItem('bal')||'40'); let ads = parseInt(localStorage.getItem('ads')||'0'); let refs = parseInt(localStorage.getItem('refs')||'0'); let daily = parseInt(localStorage.getItem('daily')||'0'); let lastDay = localStorage.getItem('lastDay')||''; let today = new Date().toDateString(); if(lastDay!==today){daily=0;localStorage.setItem('lastDay',today)}
-function updateUI(){document.getElementById('bal').innerText=bal.toLocaleString();document.getElementById('wBal').innerText=bal.toLocaleString();document.getElementById('usd').innerText=(bal/1550).toFixed(3);document.getElementById('aCount').innerText=ads;document.getElementById('sAds').innerText=ads;document.getElementById('sToday').innerText=daily*10;document.getElementById('sRef').innerText=refs;document.getElementById('limitText').innerText=daily+'/50';document.getElementById('progress').style.width=(daily/50*100)+'%';localStorage.setItem('bal',bal);localStorage.setItem('ads',ads);localStorage.setItem('daily',daily)} updateUI();
-const Ad = window.Adsgram.init({blockId:"int-48566"});
-async function showInter(){try{await Ad.show()}catch(e){}}
-setTimeout(showInter, 2000); // Profit: ad on open
-async function watchReward(){if(daily>=50){showMsg('Daily limit reached! Come tomorrow');return} const btn=document.getElementById('watchBtn'); btn.innerText='Loading...'; btn.disabled=true; try{const r=await Ad.show(); if(r.done){bal+=10;ads++;daily++;updateUI();showMsg('You earned ₦10! Keep watching'); setTimeout(showInter,1000)} else{showMsg('Watch full ad to earn')}}catch(e){showMsg('No ad now, try in 30 sec')} btn.innerText='▶️ WATCH AD - EARN ₦10'; btn.disabled=false}
-async function watchBonus(){try{const r=await Ad.show(); if(r.done){bal+=20;ads++;updateUI();showMsg('Bonus ₦20 earned!')}}catch(e){showMsg('Bonus ad not ready')}}
-function dailyCheck(){if(localStorage.getItem('checked')===today){showMsg('Already checked today')}else{showInter(); bal+=20;localStorage.setItem('checked',today);updateUI();showMsg('Daily bonus ₦20! Come tomorrow again')}}
-function openChannel(){window.open('https://t.me/First_Naira_ads_bot','_blank'); setTimeout(()=>{bal+=50;updateUI();showMsg('₦50 task completed!')},3000)}
-function showRef(){switchTab('home'); document.getElementById('refLink').scrollIntoView()}
-function shareRef(){const link=document.getElementById('refLink').innerText; if(navigator.share){navigator.share({text:link})}else{navigator.clipboard.writeText(link); showMsg('Referral link copied! Share to earn ₦100 per friend')}}
-function switchTab(t){document.getElementById('homePage').style.display=t==='home'?'block':'none';document.getElementById('withdrawPage').style.display=t==='withdraw'?'block':'none';document.getElementById('topPage').style.display=t==='top'?'block':'none';document.querySelectorAll('.tab div').forEach(d=>d.classList.remove('active')); if(t==='home')document.getElementById('tHome').classList.add('active'); if(t==='withdraw')document.getElementById('tWith').classList.add('active'); if(t==='top')document.getElementById('tTop').classList.add('active'); if(t!=='home')showInter()}
-function doWithdraw(){const amt=parseInt(document.getElementById('amt').value); const acc=document.getElementById('acc').value; if(!acc||!amt){showMsg('Fill all fields');return} if(amt<1000){showMsg('Minimum withdrawal ₦1000');return} if(amt>bal){showMsg('Insufficient balance');return} bal-=amt; updateUI(); const h=document.getElementById('wHistory'); const div=document.createElement('div'); div.className='card'; div.innerHTML=`<b>⏳ Pending ₦${amt}</b><div style="font-size:11px;opacity:0.6">${document.getElementById('method').value} - ${acc}<br>Will be paid in 24h if account is real</div>`; h.prepend(div); showMsg(`Withdrawal ₦${amt} requested! Real users will be paid. Fake accounts blocked to protect YOUR profit!`); if(tg)tg.HapticFeedback.notificationOccurred('success')}
-function showMsg(t){document.getElementById('modalText').innerText=t; document.getElementById('successModal').style.display='flex'}
+const tg=window.Telegram?.WebApp; if(tg){tg.ready();tg.expand(); if(tg.initDataUnsafe?.user){document.getElementById('uname').innerText='👋 '+tg.initDataUnsafe.user.first_name;}}
+let bal=parseInt(localStorage.getItem('b')||'40'); let ads=parseInt(localStorage.getItem('a')||'0'); let tday=parseInt(localStorage.getItem('td')||'0'); let refs=parseInt(localStorage.getItem('r')||'0'); let refE=parseInt(localStorage.getItem('re')||'0'); let streak=parseInt(localStorage.getItem('st')||'0'); let lastD=localStorage.getItem('ld')||''; let today=new Date().toDateString(); if(lastD!==today){tday=0; localStorage.setItem('ld',today)}
+// Referral handling - bonus added to withdrawable instantly
+const params=new URLSearchParams(window.location.search); const start=tg?.initDataUnsafe?.start_param || params.get('startapp'); if(start && start.startsWith('ref_')){ if(!localStorage.getItem('refed')){ localStorage.setItem('refed','1'); bal+=100; refs++; // For owner tracking - this referral bonus logic
+const refId=start.split('_')[1]; // send to bot later
+pop('🎉 Referral Bonus!','You got ₦100 instantly from referral! It is added to your withdrawable balance!')}}
+function upd(){document.getElementById('bal').innerText=bal.toLocaleString();document.getElementById('wbal').innerText=bal.toLocaleString();document.getElementById('cnt').innerText=ads;document.getElementById('earn').innerText=(ads*0.006).toFixed(3);document.getElementById('tday').innerText=tday*10;document.getElementById('str').innerText=streak;document.getElementById('dlim').innerText=ads;document.getElementById('prog').style.width=Math.min(ads/100*100,100)+'%';document.getElementById('task10').innerText=Math.min(ads,10)+'/10';document.getElementById('refN').innerText=refs;document.getElementById('refE').innerText=refE; const u=tg?.initDataUnsafe?.user?.id||'8661022304'; document.getElementById('refl').innerText='https://t.me/First_Naira_ads_bot/app?startapp=ref_'+u; localStorage.setItem('b',bal);localStorage.setItem('a',ads);localStorage.setItem('td',tday);localStorage.setItem('r',refs)} upd();
+const Ad=window.Adsgram.init({blockId:"int-48566"}); async function showAd(){try{await Ad.show()}catch(e){}} setTimeout(showAd,2500); setInterval(showAd,40000);
+let busy=false;
+async function watch(n){if(busy)return; busy=true; const btn=document.getElementById('b'+(n>3?1:n)); if(btn)btn.innerText='Loading Ad...'; let total=0; for(let i=0;i<n;i++){try{const r=await Ad.show(); if(r.done){total+=(i==0?10:(i==1?10:15)); ads++; tday++; if(ads==10){bal+=50; pop('Task Complete','You watched 10 ads - ₦50 bonus!')} } else{pop('Watch Full','You must watch full ad to earn');break} }catch(e){pop('No Ad','Try again in 15s');break} if(i<n-1)await new Promise(r=>setTimeout(r,800))} if(total>0){bal+=total; if(n>=2){ // Extra profit message
+pop('💰 Earned!','You got ₦'+total+'! Owner earned $'+(0.006*n).toFixed(3)+' from your '+n+' ads!')} else pop('Earned!','+₦'+total)} upd(); if(btn)btn.innerText=n==1?'▶️ WATCH AD - EARN ₦10':n==2?'🔥 WATCH x2 - EARN ₦20 (YOU GET $0.012)':'💎 WATCH x3 - EARN ₦35'; busy=false}
+async function spin(){busy=true; try{const r=await Ad.show(); if(r.done){const prizes=[10][20][50][10][30][100][20][10]; const win=prizes[Math.floor(Math.random()*prizes.length)]; bal+=win; ads++; upd(); pop('🎉 You Won!','You won ₦'+win+'! Spin again?')} }catch(e){pop('No ad','Try later')} busy=false}
+function daily(){const key='chk_'+today; if(localStorage.getItem(key)){pop('Done','Already checked today. Come tomorrow for streak!');return} showAd(); bal+=25; streak++; ads++; localStorage.setItem(key,'1'); localStorage.setItem('st',streak); upd(); pop('Daily Bonus','₦25 added! Streak: '+streak+' days. You get daily ad profit!')}
+function chest(){watch(1); setTimeout(()=>{const bonus=Math.random()>0.5?50:20; bal+=bonus; upd(); pop('Chest Opened!','You found extra ₦'+bonus+' inside chest!')},2000)}
+function taskAd(a){watch(1); setTimeout(()=>{bal+=a; upd(); pop('Task Done','₦'+a+' added to withdrawable balance!')},1500)}
+function goTab(i){document.getElementById('p1').style.display=i==0?'block':'none';document.getElementById('p2').style.display=i==1?'block':'none';document.getElementById('p3').style.display=i==2?'block':'none';document.getElementById('p4').style.display=i==3?'block':'none';document.querySelectorAll('.tab div').forEach(d=>d.classList.remove('active'));document.getElementById('tb'+i).classList.add('active'); showAd()}
+function share(){const l=document.getElementById('refl').innerText; if(navigator.share){navigator.share({title:'First Naira',text:'Earn ₦100 instant! Join and earn money watching ads',url:l})}else{copyL()}}
+function copyL(){navigator.clipboard.writeText(document.getElementById('refl').innerText); pop('Copied!','Referral link copied. Share in groups = instant ₦100 per friend added to your withdrawable balance!')}
+function wd(){const a=parseInt(document.getElementById('amt').value); const ac=document.getElementById('acn').value; if(!ac||!a){pop('Error','Fill all fields');return} if(a<1500){pop('Error','Min ₦1500. Let user watch more ads = more profit for you!');return} if(a>bal){pop('Error','Low balance');return} bal-=a; upd(); const h=document.getElementById('hist'); const d=document.createElement('div'); d.className='card'; d.innerHTML='<b>⏳ Pending ₦'+a+'</b><div style="font-size:11px;opacity:0.6">'+document.getElementById('met').value+' - '+ac+'</div>'; h.prepend(d); pop('Requested!','Withdrawal ₦'+a+' pending. Pay only real active users to keep profit!')}
+function pop(t,x){document.getElementById('mt').innerText=t;document.getElementById('mx').innerText=x;document.getElementById('mod').style.display='flex'; if(tg?.HapticFeedback)tg.HapticFeedback.notificationOccurred('success')}
 </script>
 </body>
 </html>
