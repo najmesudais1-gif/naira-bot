@@ -8,7 +8,7 @@
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto;background:#0b1220;color:#fff;min-height:100vh;padding:16px}
+body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto;background:#0b1220;color:#fff;min-height:100vh;padding:16px}
 .header{text-align:center;padding:10px}
 .balance{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#000;padding:18px;border-radius:20px;font-weight:800;font-size:22px;margin:12px 0;box-shadow:0 10px 20px rgba(245,158,11,.3)}
 .card{background:#111d33;border:1px solid #1e2f4f;border-radius:18px;padding:16px;margin:12px 0}
@@ -43,13 +43,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto;background:#
 <h3>📺 Boost Earnings - Watch Ad</h3>
 <p style="font-size:13px;opacity:.8">Watch 15s ad and earn +100 virtual coins (optional)</p>
 <button class="btn btn-reward" id="adBtn" onclick="watchAd()">▶️ Watch Ad +100 Coins</button>
-<div class="small">Ads powered by AdsGram. Coins are virtual, no cash value. Block 48676</div>
+<div class="small">Ads by AdsGram Block 48675. Coins are virtual, no cash value.</div>
 </div>
 
 <div class="card">
 <h3>✅ Daily Tasks</h3>
 <button class="btn btn-primary" onclick="claimDaily()">Daily Check-in +50</button>
-<button class="btn btn-primary" onclick="claimInvite()">Invite Friend +200 (Share)</button>
+<button class="btn btn-primary" onclick="claimInvite()">Invite Friend +200</button>
 <div class="small" id="streak">Streak: 1 day</div>
 </div>
 
@@ -57,14 +57,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto;background:#
 <a href="/privacy.html">Privacy Policy</a>
 <a href="/terms.html">Terms</a>
 <a href="https://t.me/First_Naira_ads_bot">Bot</a>
-<p style="margin-top:8px">Platform ID: 46069 TMA • Block ID: int-48676<br>Reward URL: /?userid=[userId]</p>
+<p style="margin-top:8px">Platform: 46069 • Block: 48675 • Reward: /?userid=[userId]</p>
 </div>
 
 <script>
-// Telegram
 const tg = window.Telegram.WebApp; tg.ready(); tg.expand();
-
-// Storage
 let coins = parseInt(localStorage.getItem('fn_coins')||'0');
 let streak = parseInt(localStorage.getItem('fn_streak')||'1');
 const coinsEl = document.getElementById('coins');
@@ -73,48 +70,24 @@ function render(){ coinsEl.innerText = coins.toLocaleString(); streakEl.innerTex
 function save(){ localStorage.setItem('fn_coins', coins); localStorage.setItem('fn_streak', streak); render(); }
 render();
 
-// Handle?userid= from AdsGram reward callback (for server verification)
-const params = new URLSearchParams(window.location.search);
-if(params.get('userid')){ console.log('AdsGram user:', params.get('userid')); }
+function spin(){ let win=Math.floor(Math.random()*80)+20; coins+=win; save(); tg.HapticFeedback.notificationOccurred('success'); alert('🎉 +'+win+' coins!'); }
+function openChest(){ let win=Math.floor(Math.random()*120)+30; coins+=win; save(); tg.HapticFeedback.notificationOccurred('success'); alert('🎁 Chest: +'+win+' coins!'); }
+function claimDaily(){ coins+=50; streak++; save(); alert('✅ Daily +50!'); }
+function claimInvite(){ let link='https://t.me/First_Naira_ads_bot/app?startapp=ref_'+ (tg.initDataUnsafe.user?.id||'123'); prompt('Copy invite link:', link); coins+=10; save(); }
 
-// Game functions
-function spin(){
-  let win = Math.floor(Math.random()*80)+20;
-  coins+=win; save();
-  tg.HapticFeedback.notificationOccurred('success');
-  alert('🎉 You won +'+win+' coins!');
-}
-function openChest(){
-  let win = Math.floor(Math.random()*120)+30;
-  coins+=win; save();
-  tg.HapticFeedback.notificationOccurred('success');
-  alert('🎁 Chest: +'+win+' coins!');
-}
-function claimDaily(){
-  coins+=50; streak++; save();
-  alert('✅ Daily +50 coins claimed!');
-}
-function claimInvite(){
-  let link = 'https://t.me/First_Naira_ads_bot/app?startapp=ref_'+ (tg.initDataUnsafe.user?.id || '123');
-  if(navigator.share){ navigator.share({title:'First Naira', text:'Join First Naira and earn coins!', url:link}); }
-  else{ prompt('Copy invite link:', link); }
-  coins+=10; save();
-}
-
-// ADSGRAM - Block 48676 - DO NOT EDIT BLOCK ID
-const AdController = window.Adsgram.init({ blockId: "48676" });
+// === ADSGAM - YOUR BLOCK 48675 - STARTED ===
+const AdController = window.Adsgram.init({ blockId: "48675" });
 async function watchAd(){
-  const btn = document.getElementById('adBtn');
+  const btn=document.getElementById('adBtn');
   btn.innerText='⏳ Loading Ad...'; btn.disabled=true;
   try{
-    const result = await AdController.show();
-    // User watched full ad - reward
+    await AdController.show();
     coins+=100; save();
     tg.HapticFeedback.notificationOccurred('success');
     alert('✅ +100 Coins Added! Balance: '+coins);
   }catch(err){
-    console.error(err);
-    alert('Ad not ready yet. Please try again in 20-30 seconds.\nMake sure your platform is Active in AdsGram.');
+    console.log(err);
+    alert('Ad not ready. Wait 30 seconds and try again. Make sure Platform 46069 is Active.');
   }finally{
     btn.innerText='▶️ Watch Ad +100 Coins'; btn.disabled=false;
   }
