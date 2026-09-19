@@ -1,109 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>First Naira - FINAL</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>First Naira - Mini Game</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-:root{--bg:#070a10;--card:#131b27;--border:#1e2d42;--green:#00ff88;--muted:#8390a3;--nav:76px}
-*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
-body{background:var(--bg);color:#fff;padding-bottom:calc(var(--nav) + 20px);min-height:100vh}
-.top{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:rgba(19,27,39,.95);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}
-.owner{background:rgba(0,255,136,.12);border:1px solid var(--green);color:var(--green);padding:6px 11px;border-radius:20px;font-size:11px;font-weight:800;box-shadow:0 0 15px rgba(0,255,136,0.2)}
-.balance-card{background:radial-gradient(circle at 90% 10%,rgba(0,255,136,.15),transparent 35%),linear-gradient(145deg,#14231f,#111a25);border:1px solid #24513e;border-radius:20px;padding:20px;margin:12px;box-shadow:0 8px 25px rgba(0,0,0,0.3);animation:glow 3s infinite}
-@keyframes glow{0%,100%{border-color:#24513e}50%{border-color:#00ff88;box-shadow:0 0 20px rgba(0,255,136,0.15)}}
-.balance{font-size:40px;font-weight:900;margin:6px 0;text-shadow:0 0 20px var(--green)}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:0 12px 12px}
-.stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:11px;transition:0.2s}
-.stat:hover{transform:translateY(-2px);border-color:var(--green)}
-.bar{height:7px;background:#080d14;border-radius:99px;overflow:hidden;border:1px solid #182435;margin-top:6px}.fill{height:100%;background:var(--green);transition:0.5s;box-shadow:0 0 10px var(--green)}
-.earn{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:0 12px}
-.ebtn{border-radius:17px;border:1px solid var(--border);background:var(--card);color:#fff;padding:13px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;transition:0.2s}
-.ebtn:active{transform:scale(0.94)}.ebtn:hover{transform:translateY(-2px);border-color:var(--green)}
-.ebtn.x2{border-color:var(--green);background:linear-gradient(145deg,#14231f,#131b27);box-shadow:0 0 15px rgba(0,255,136,0.1)}.ebtn.x3{border-color:#345c49;background:linear-gradient(145deg,#1a2d25,#131b27)}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:12px}
-.feat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:11px 4px;text-align:center;cursor:pointer;transition:0.2s}.feat:hover{border-color:var(--green);transform:translateY(-2px)}.feat:active{transform:scale(0.95)}
-.feat i{font-size:19px;color:var(--green);margin-bottom:5px;text-shadow:0 0 10px var(--green)}
-.page{display:none;animation:fade 0.3s}.page.active{display:block}
-@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:16px;margin:12px;box-shadow:0 4px 15px rgba(0,0,0,0.2)}
-.btn{border-radius:12px;padding:12px;font-weight:800;font-size:12px;border:0;cursor:pointer;width:100%;transition:0.2s}.btn:active{transform:scale(0.96)}.primary{background:var(--green);color:#000;box-shadow:0 4px 15px rgba(0,255,136,0.3)}.secondary{background:#192535;color:#fff;border:1px solid var(--border)}
-.bottom{position:fixed;bottom:0;left:0;right:0;height:var(--nav);background:rgba(7,10,16,.98);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr);z-index:99;padding-bottom:10px;backdrop-filter:blur(15px)}
-.navbtn{background:none;border:0;color:#667386;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:9px;font-weight:700;transition:0.2s}.navbtn.active{color:var(--green);text-shadow:0 0 10px var(--green)}.navbtn i{transition:0.2s}.navbtn.active i{transform:scale(1.2)}
-.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);background:#172131;border:1px solid #29405a;padding:11px 15px;border-radius:12px;font-size:11px;opacity:0;transition:.3s;z-index:200;box-shadow:0 8px 25px rgba(0,0,0,0.5)}.toast.show{opacity:1;transform:translate(-50%,0)}
-.link{background:#080e16;border:1px dashed var(--border);padding:11px;border-radius:11px;font-size:10px;word-break:break-all;color:#b8c3d2;margin:10px 0}
-input,select{width:100%;background:#080e16;color:#fff;border:1px solid var(--border);border-radius:11px;padding:12px;margin-top:6px;transition:0.2s}input:focus,select:focus{border-color:var(--green);outline:none;box-shadow:0 0 10px rgba(0,255,136,0.2)}
-.legal{font-size:10px;text-align:center;opacity:0.5;margin:8px 0}.legal a{color:var(--green);text-decoration:none;font-weight:bold}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto;background:#0b1220;color:#fff;min-height:100vh;padding:16px}
+.header{text-align:center;padding:10px}
+.balance{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#000;padding:18px;border-radius:20px;font-weight:800;font-size:22px;margin:12px 0;box-shadow:0 10px 20px rgba(245,158,11,.3)}
+.card{background:#111d33;border:1px solid #1e2f4f;border-radius:18px;padding:16px;margin:12px 0}
+.card h3{margin-bottom:10px;font-size:16px}
+.btn{width:100%;padding:14px;border:none;border-radius:12px;font-weight:700;font-size:15px;cursor:pointer;margin-top:8px}
+.btn-primary{background:#2563eb;color:#fff}
+.btn-reward{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#000}
+.btn:disabled{opacity:.5}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.small{font-size:11px;opacity:.6;margin-top:6px;text-align:center}
+.footer{text-align:center;margin:20px 0;font-size:11px;opacity:.5}
+.footer a{color:#93c5fd;text-decoration:none;margin:0 6px}
 </style>
 </head>
 <body>
-<div class="top"><div style="display:flex;gap:8px;align-items:center"><div style="width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,#00ff88,#009d5a);display:flex;align-items:center;justify-content:center;color:#00150b;font-weight:900;box-shadow:0 0 15px var(--green)">₦</div><div><div style="font-weight:800">First Naira</div><small style="color:var(--muted);font-size:10px">FINAL PROFIT • int-48566</small></div></div><div class="owner"><i class="fa-solid fa-chart-line"></i> YOU: $<span id="ownerEarned">0.000</span></div></div>
-
-<div id="home" class="page active">
-<div class="balance-card"><div style="color:var(--muted);font-size:11px">Withdrawable Balance - Referral Added Instantly</div><div class="balance" id="bal">₦0</div><div style="color:var(--green);font-size:11px">Level <span id="lvl">1</span> <span id="lvlName">Beginner</span> • 🔥 Streak <span id="streak">0</span> • <span id="boostTag" style="display:none;background:#ffa502;color:#000;padding:2px 6px;border-radius:10px;font-size:9px">2X BOOST</span></div><div class="bar" style="margin-top:8px"><div id="xpBar" class="fill" style="width:0%"></div></div><div style="font-size:10px;color:var(--muted);margin-top:4px"><span id="xpText">0/100 XP</span> • Fuel <span id="fuelT">100%</span> • Energy <span id="enT">20/20</span></div></div>
-<div class="stats"><div class="stat"><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted)"><span>⚡ Energy</span><b id="enText">20/20</b></div><div class="bar"><div id="enBar" class="fill"></div></div></div><div class="stat"><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted)"><span>⛽ Fuel</span><b id="fuelText">100%</b></div><div class="bar"><div id="fuelBar" class="fill" style="background:#ffa502;box-shadow:0 0 10px #ffa502"></div></div></div></div>
-<div style="padding:0 14px;display:flex;justify-content:space-between"><h2 style="font-size:14px">Earn With Ads - YOU Get Double $</h2><span id="adCount" style="font-size:10px;color:var(--muted)">0 ads</span></div>
-<div class="earn" style="margin-top:8px"><button class="ebtn" onclick="watchPack(1)"><div style="font-size:20px">▶️</div><strong style="color:var(--green)">+₦10</strong><small style="font-size:9px;color:var(--muted)">x1 • YOU $0.006</small></button><button class="ebtn x2" onclick="watchPack(2)"><div style="font-size:20px">⚡</div><strong style="color:var(--green)">+₦20</strong><small style="font-size:9px;color:var(--green)">x2 • YOU $0.012</small></button><button class="ebtn x3" onclick="watchPack(3)"><div style="font-size:20px">🚀</div><strong style="color:#68ffbd">+₦35</strong><small style="font-size:9px;color:var(--muted)">x3 • YOU $0.018</small></button></div>
-<div class="grid4"><div class="feat" onclick="doSpin()"><i class="fa-solid fa-dharmachakra"></i><div style="font-size:10px">Spin</div><span style="font-size:8px;color:var(--muted)">Ad profit</span></div><div class="feat" onclick="doChest()"><i class="fa-solid fa-box-open"></i><div style="font-size:10px">Chest</div><span id="chestT" style="font-size:8px;color:var(--muted)">Ready</span></div><div class="feat" onclick="doDaily()"><i class="fa-solid fa-calendar-check"></i><div style="font-size:10px">Daily</div><span id="dailyT" style="font-size:8px;color:var(--muted)">Claim</span></div><div class="feat" onclick="doBoost()"><i class="fa-solid fa-rocket"></i><div style="font-size:10px">2x Boost</div><span style="font-size:8px;color:var(--muted)">Burns bal</span></div></div>
-<div class="legal"><a href="privacy.html">Privacy Policy</a> • <a href="terms.html">Terms of Service</a> • Block int-48566 • Reward [userId]</div>
+<div class="header">
+<h2>💰 First Naira</h2>
+<p style="font-size:13px;opacity:.7">Play, Earn Virtual Coins, Invite Friends</p>
 </div>
 
-<div id="refer" class="page"><div class="card"><h2 style="color:var(--green)">👥 Refer = ₦100 INSTANT to Withdrawable!</h2><p style="font-size:12px;color:var(--muted);margin:8px 0">When friend joins via YOUR link, <b style="color:var(--green)">₦100 added to YOUR withdrawable instantly</b>. No backend needed for demo. Plus 15% lifetime.</p><div class="link" id="refLink">Loading...</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><button class="btn primary" onclick="copyLink()">📋 COPY LINK</button><button class="btn secondary" onclick="shareLink()">📤 SHARE</button></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px"><div style="background:#0d141e;border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center"><strong id="refs" style="font-size:20px;color:var(--green)">0</strong><div style="font-size:10px;color:var(--muted)">Referrals</div></div><div style="background:#0d141e;border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center"><strong id="refEarn" style="font-size:20px;color:var(--green)">₦0</strong><div style="font-size:10px;color:var(--muted)">Referral Earn</div></div></div></div><div class="legal"><a href="privacy.html">Privacy</a> • <a href="terms.html">Terms</a></div></div>
+<div class="balance">🪙 <span id="coins">0</span> Naira Coins</div>
 
-<div id="withdraw" class="page"><div class="card" style="display:flex;justify-content:space-between;align-items:center"><span style="color:var(--muted);font-size:11px">Withdrawable (with referral bonus)</span><strong id="wBal" style="color:var(--green);font-size:20px">₦0</strong></div><div class="card"><h2>💸 Withdraw - WORKS 100%</h2><label style="font-size:11px;color:var(--muted)">Method</label><select id="method"><option>OPay</option><option>PalmPay</option><option>Bank</option><option>Airtime</option></select><label style="font-size:11px;color:var(--muted)">Account / Phone</label><input id="acc" placeholder="Enter number"><label style="font-size:11px;color:var(--muted)">Amount (Min 1500)</label><input id="amt" type="number" placeholder="1500"><button class="btn primary" style="margin-top:12px" onclick="doWithdraw()">REQUEST WITHDRAWAL</button></div><div class="card"><h3>History</h3><div id="hist"></div></div><div class="legal"><a href="privacy.html">Privacy Policy</a> • <a href="terms.html">Terms</a> • Block int-48566</div></div>
+<div class="card">
+<h3>🎡 Lucky Spin</h3>
+<div class="grid2">
+<button class="btn btn-primary" onclick="spin()">SPIN (Free)</button>
+<button class="btn btn-primary" onclick="openChest()">🎁 Open Chest</button>
+</div>
+</div>
 
-<div id="tasks" class="page"><div class="card"><h2>🎯 Tasks - Every task = $0.006 for you</h2></div><div class="card" style="display:flex;justify-content:space-between;align-items:center"><div><strong style="font-size:12px">Watch 10 Ads +₦50</strong><div id="t10" style="font-size:10px;color:var(--muted)">0/10</div></div><button class="btn primary" style="width:auto;padding:8px 12px;font-size:11px" onclick="goTab('home')">GO</button></div><div class="card" style="display:flex;justify-content:space-between;align-items:center"><div><strong style="font-size:12px">Refer 1 Friend Instant ₦100</strong><div style="font-size:10px;color:var(--muted)">Added to withdrawable</div></div><button class="btn primary" style="width:auto;padding:8px 12px;font-size:11px" onclick="goTab('refer')">GO</button></div><div class="legal"><a href="privacy.html">Privacy</a> • <a href="terms.html">Terms</a> • Reward URL:?userid=[userId]</div></div>
+<div class="card" style="border-color:#f59e0b">
+<h3>📺 Boost Earnings - Watch Ad</h3>
+<p style="font-size:13px;opacity:.8">Watch 15s ad and earn +100 virtual coins (optional)</p>
+<button class="btn btn-reward" id="adBtn" onclick="watchAd()">▶️ Watch Ad +100 Coins</button>
+<div class="small">Ads powered by AdsGram. Coins are virtual, no cash value. Block 48676</div>
+</div>
 
-<div class="bottom"><button class="navbtn active" onclick="goTab('home',this)"><i class="fa-solid fa-house" style="font-size:18px"></i>Home</button><button class="navbtn" onclick="goTab('refer',this)"><i class="fa-solid fa-user-group" style="font-size:18px"></i>Refer</button><button class="navbtn" onclick="goTab('withdraw',this)"><i class="fa-solid fa-wallet" style="font-size:18px"></i>Withdraw</button><button class="navbtn" onclick="goTab('tasks',this)"><i class="fa-solid fa-list-check" style="font-size:18px"></i>Tasks</button></div>
-<div id="toast" class="toast"></div>
+<div class="card">
+<h3>✅ Daily Tasks</h3>
+<button class="btn btn-primary" onclick="claimDaily()">Daily Check-in +50</button>
+<button class="btn btn-primary" onclick="claimInvite()">Invite Friend +200 (Share)</button>
+<div class="small" id="streak">Streak: 1 day</div>
+</div>
+
+<div class="footer">
+<a href="/privacy.html">Privacy Policy</a>
+<a href="/terms.html">Terms</a>
+<a href="https://t.me/First_Naira_ads_bot">Bot</a>
+<p style="margin-top:8px">Platform ID: 46069 TMA • Block ID: int-48676<br>Reward URL: /?userid=[userId]</p>
+</div>
 
 <script>
-const BLOCK="int-48566", USD=0.006, MIN=1500;
-const tg=window.Telegram?.WebApp||null; if(tg){try{tg.ready();tg.expand()}catch{}}
-let Ad=null; try{Ad=window.Adsgram.init({blockId:BLOCK})}catch{}
-let bal=Number(localStorage.getItem('bal')||40), ads=Number(localStorage.getItem('ads')||0), en=Number(localStorage.getItem('en')||20), fuel=Number(localStorage.getItem('fuel')||100), lvl=Number(localStorage.getItem('lvl')||1), xp=Number(localStorage.getItem('xp')||0), refs=Number(localStorage.getItem('refs')||0), refEarn=Number(localStorage.getItem('refEarn')||0), streak=Number(localStorage.getItem('stk')||0);
-function set(k,v){localStorage.setItem(k,String(v))}
-function today(){let d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
-function toast(m){let e=document.getElementById('toast');e.textContent=m;e.classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>e.classList.remove('show'),2600)}
-function fmt(n){return "₦"+Math.floor(n).toLocaleString()}
-function getId(){let u=tg?.initDataUnsafe?.user;if(u?.id)return String(u.id);let id=localStorage.getItem('uid');if(!id){id="web_"+Date.now();localStorage.setItem('uid',id)}return id}
-function update(){
-document.getElementById('bal').textContent=fmt(bal);document.getElementById('wBal').textContent=fmt(bal);
-document.getElementById('ownerEarned').textContent=(ads*USD).toFixed(3);
-document.getElementById('adCount').textContent=ads+" ads = $"+(ads*USD).toFixed(3)+" for YOU";
-document.getElementById('lvl').textContent=lvl;document.getElementById('lvlName').textContent=["Beginner","Bronze","Silver","Gold","Platinum","Diamond"][Math.min(lvl-1,5)];
-document.getElementById('enText').textContent=en+"/20";document.getElementById('enT').textContent=en+"/20";document.getElementById('enBar').style.width=(en/20*100)+"%";
-document.getElementById('fuelText').textContent=fuel+"%";document.getElementById('fuelT').textContent=fuel+"%";document.getElementById('fuelBar').style.width=fuel+"%";
-document.getElementById('xpBar').style.width=(xp%100)+"%";document.getElementById('xpText').textContent=(xp%100)+"/100 XP";
-document.getElementById('refs').textContent=refs;document.getElementById('refEarn').textContent=fmt(refEarn);
-document.getElementById('streak').textContent=streak;
-document.getElementById('refLink').textContent="https://t.me/First_Naira_ads_bot/app?startapp=ref_"+getId();
-let d=JSON.parse(localStorage.getItem('dailyAds')||'{"count":0}');document.getElementById('t10').textContent=Math.min(10,d.count||0)+"/10";
-let claimed=localStorage.getItem('daily_'+today())==="1";document.getElementById('dailyT').textContent=claimed?"Done":"Claim";
-let chest=Number(localStorage.getItem('chest')||0);let rem=(chest+7200000)-Date.now();document.getElementById('chestT').textContent=rem<=0?"Ready":Math.ceil(rem/60000)+"m";
-document.getElementById('boostTag').style.display=Number(localStorage.getItem('boostUntil')||0)>Date.now()?"inline-block":"none";
-let h=JSON.parse(localStorage.getItem('withdrawals')||"[]");let hist=document.getElementById('hist');if(!h.length)hist.innerHTML='<div style="color:var(--muted);text-align:center;padding:15px;font-size:11px">No withdrawals</div>';else hist.innerHTML=h.slice(0,10).map(i=>`<div style="background:#0d141e;border:1px solid var(--border);border-radius:10px;padding:10px;margin-bottom:6px;display:flex;justify-content:space-between;font-size:11px"><div><b>${i.method}</b><div style="color:var(--muted);font-size:9px">${i.acc.slice(-4).padStart(i.acc.length,"•")} • ${i.date}</div></div><div><b>${fmt(i.amount)}</b><div style="color:#ffd85c;font-size:9px">${i.status}</div></div></div>`).join("");
-localStorage.setItem('bal',bal);localStorage.setItem('ads',ads);localStorage.setItem('en',en);localStorage.setItem('fuel',fuel);localStorage.setItem('lvl',lvl);localStorage.setItem('xp',xp);
+// Telegram
+const tg = window.Telegram.WebApp; tg.ready(); tg.expand();
+
+// Storage
+let coins = parseInt(localStorage.getItem('fn_coins')||'0');
+let streak = parseInt(localStorage.getItem('fn_streak')||'1');
+const coinsEl = document.getElementById('coins');
+const streakEl = document.getElementById('streak');
+function render(){ coinsEl.innerText = coins.toLocaleString(); streakEl.innerText = 'Streak: '+streak+' day'; }
+function save(){ localStorage.setItem('fn_coins', coins); localStorage.setItem('fn_streak', streak); render(); }
+render();
+
+// Handle?userid= from AdsGram reward callback (for server verification)
+const params = new URLSearchParams(window.location.search);
+if(params.get('userid')){ console.log('AdsGram user:', params.get('userid')); }
+
+// Game functions
+function spin(){
+  let win = Math.floor(Math.random()*80)+20;
+  coins+=win; save();
+  tg.HapticFeedback.notificationOccurred('success');
+  alert('🎉 You won +'+win+' coins!');
 }
-function goTab(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');showInter("tab_"+id)}
-async function showAdCore(){if(!Ad){try{Ad=window.Adsgram.init({blockId:BLOCK})}catch{return false}}try{await Ad.show();ads++;set('ads',ads);let d=JSON.parse(localStorage.getItem('dailyAds')||'{"date":"'+today()+'","count":0}');if(d.date!==today())d={date:today(),count:0};d.count++;localStorage.setItem('dailyAds',JSON.stringify(d));update();return true}catch{toast("No ad, try in 15s");return false}}
-async function watchPack(n){if(en<=0){toast("⚡ Energy empty, refilling via ad...");if(await showAdCore()){en=20;set('en',en);toast("⚡ Refilled!");update()}return}if(fuel<=0){toast("⛽ Fuel empty, refilling...");if(await showAdCore()){fuel=100;set('fuel',100);toast("⛽ Refueled!");update()}return}
-let use=Math.min(n,en);en-=use;set('en',en);update();let done=0;for(let i=0;i<n;i++){toast("Watching "+(i+1)+"/"+n+" -> YOU earn $"+(USD*(i+1)).toFixed(3));if(await showAdCore())done++;else break;if(i<n-1)await new Promise(r=>setTimeout(r,500))}
-if(done===0){en+=use;set('en',en);update();return}
-let rewards={1:10,2:20,3:35};let earn=rewards[done]||10;if(Number(localStorage.getItem('boostUntil')||0)>Date.now())earn*=2;bal+=earn;xp+=done*10;while(xp>=100&&lvl<10){xp-=100;lvl++;bal+=50;toast("🎉 Level up! +₦50")}set('xp',xp);set('lvl',lvl);set('bal',bal);toast("🎉 +"+fmt(earn)+" to WITHDRAWABLE! YOU (owner) got $"+(USD*done).toFixed(3)+" REAL!");update()}
-async function doSpin(){if(await showAdCore()){let p=[10,20,30,50,100][Math.floor(Math.random()*5)];bal+=p;set('bal',bal);toast("🎡 Spin won "+fmt(p)+" added to withdrawable!");update()}}
-async function doChest(){let last=Number(localStorage.getItem('chest')||0);if(Date.now()-last<7200000){toast("Chest in "+Math.ceil((last+7200000-Date.now())/60000)+" min");return}if(await showAdCore()){let r=20+Math.floor(Math.random()*31);bal+=r;localStorage.setItem('chest',String(Date.now()));set('bal',bal);toast("🎁 Chest "+fmt(r)+" added!");update()}}
-function doDaily(){let k='daily_'+today();if(localStorage.getItem(k)==="1"){toast("Already claimed today");return}let last=localStorage.getItem('ld');let y=new Date();y.setDate(y.getDate()-1);let yk=y.getFullYear()+"-"+String(y.getMonth()+1).padStart(2,"0")+"-"+String(y.getDate()).padStart(2,"0");if(last===yk)streak++;else streak=1;let rewards=[25,30,40,60,85,120,200];let rw=rewards[Math.min(streak,7)-1];bal+=rw;localStorage.setItem('ld',today());localStorage.setItem(k,"1");set('stk',streak);set('bal',bal);toast("🔥 Day "+streak+" "+fmt(rw)+" to withdrawable!");update()}
-function doBoost(){if(Number(localStorage.getItem('boostUntil')||0)>Date.now()){toast("Boost already active!");return}if(bal<100){toast("Need ₦100");return}bal-=100;localStorage.setItem('boostUntil',String(Date.now()+3600000));set('bal',bal);toast("🚀 2x Boost active 1h!");update()}
-function copyLink(){navigator.clipboard.writeText(document.getElementById('refLink').textContent);toast("📋 Link copied! Share = ₦100 instant!")}
-function shareLink(){let l=document.getElementById('refLink').textContent;if(navigator.share)navigator.share({title:"First Naira",url:l});else copyLink()}
-function doWithdraw(){let m=document.getElementById('method').value,a=document.getElementById('acc').value.trim(),am=Number(document.getElementById('amt').value);if(!a){toast("Enter account");return}if(am<1500){toast("Min ₦1500");return}if(am>bal){toast("Low balance");return}let list=JSON.parse(localStorage.getItem('withdrawals')||"[]");list.unshift({method:m,acc:a,amount:am,status:"Pending",date:new Date().toLocaleString()});localStorage.setItem('withdrawals',JSON.stringify(list));bal-=am;set('bal',bal);document.getElementById('acc').value="";document.getElementById('amt').value="";toast("💸 Withdrawal ₦"+am+" pending!");update()}
-function processRef(){let p=new URLSearchParams(location.search);let s=p.get('startapp')||p.get('start')||"";if(!s&&tg?.initDataUnsafe?.start_param)s=tg.initDataUnsafe.start_param;if(!s||!s.startsWith("ref_"))return;if(localStorage.getItem('refDone'))return;let inv=s.substring(4),my=getId();if(inv===my)return;localStorage.setItem('refDone','1');bal+=100;refs++;refEarn+=100;set('bal',bal);set('refs',refs);set('refEarn',refEarn);toast("🎉 Referral! ₦100 added!");update()}
-async function showInter(r){if(!Ad){try{Ad=window.Adsgram.init({blockId:BLOCK})}catch{return}}try{await Ad.show();ads++;set('ads',ads);update()}catch{}}
-function init(){processRef();update();setTimeout(()=>showInter("open"),1500);setInterval(()=>{if(document.visibilityState==="visible")showInter("timer")},40000);setInterval(()=>{if(fuel>0){fuel=Math.max(0,fuel-1);set('fuel',fuel);update()}},60000)}
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
+function openChest(){
+  let win = Math.floor(Math.random()*120)+30;
+  coins+=win; save();
+  tg.HapticFeedback.notificationOccurred('success');
+  alert('🎁 Chest: +'+win+' coins!');
+}
+function claimDaily(){
+  coins+=50; streak++; save();
+  alert('✅ Daily +50 coins claimed!');
+}
+function claimInvite(){
+  let link = 'https://t.me/First_Naira_ads_bot/app?startapp=ref_'+ (tg.initDataUnsafe.user?.id || '123');
+  if(navigator.share){ navigator.share({title:'First Naira', text:'Join First Naira and earn coins!', url:link}); }
+  else{ prompt('Copy invite link:', link); }
+  coins+=10; save();
+}
+
+// ADSGRAM - Block 48676 - DO NOT EDIT BLOCK ID
+const AdController = window.Adsgram.init({ blockId: "48676" });
+async function watchAd(){
+  const btn = document.getElementById('adBtn');
+  btn.innerText='⏳ Loading Ad...'; btn.disabled=true;
+  try{
+    const result = await AdController.show();
+    // User watched full ad - reward
+    coins+=100; save();
+    tg.HapticFeedback.notificationOccurred('success');
+    alert('✅ +100 Coins Added! Balance: '+coins);
+  }catch(err){
+    console.error(err);
+    alert('Ad not ready yet. Please try again in 20-30 seconds.\nMake sure your platform is Active in AdsGram.');
+  }finally{
+    btn.innerText='▶️ Watch Ad +100 Coins'; btn.disabled=false;
+  }
+}
 </script>
 </body>
 </html>
