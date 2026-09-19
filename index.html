@@ -1,34 +1,102 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>First Naira - Mini Game</title>
-<link rel="stylesheet" href="style.css">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 50%,#0f172a 100%);color:#fff;font-family:'Segoe UI',sans-serif;min-height:100vh;padding:16px;overflow-x:hidden}
+body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 20%,rgba(0,255,157,0.15) 0%,transparent 50%),radial-gradient(circle at 80% 80%,rgba(139,92,246,0.15) 0%,transparent 50%);animation:float 10s infinite;pointer-events:none}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,-20px)}}
+.app{max-width:400px;margin:0 auto;position:relative;z-index:1}
+.card{background:rgba(255,255,255,0.08);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.15);border-radius:24px;padding:20px;margin:14px 0;box-shadow:0 8px 32px rgba(0,0,0,0.3);transition:transform 0.3s}
+.card:hover{transform:translateY(-2px)}
+.header{text-align:center;background:linear-gradient(135deg,rgba(0,255,157,0.15),rgba(139,92,246,0.15));border:1px solid rgba(0,255,157,0.3)}
+.header h1{font-size:26px;letter-spacing:1px;text-shadow:0 0 20px rgba(0,255,157,0.5)}
+.balance{font-size:48px;font-weight:900;color:#00ff9d;margin:12px 0;text-shadow:0 0 30px #00ff9d;animation:pulse 2s infinite}
+@keyframes pulse{0%{transform:scale(1);text-shadow:0 0 20px #00ff9d}50%{transform:scale(1.05);text-shadow:0 0 40px #00ff9d}100%{transform:scale(1)}}
+.btn{width:100%;padding:18px;border:none;border-radius:16px;font-weight:800;font-size:16px;margin:10px 0;cursor:pointer;position:relative;overflow:hidden;transition:all 0.2s}
+.btn::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);transition:0.5s}
+.btn:hover::before{left:100%}
+.btn:active{transform:scale(0.96)}
+.btn-primary{background:linear-gradient(90deg,#00d084,#00a86b);color:#fff;box-shadow:0 4px 15px rgba(0,208,132,0.4)}
+.btn-spin{background:linear-gradient(90deg,#f59e0b,#ef4444);color:#fff;box-shadow:0 4px 15px rgba(245,158,11,0.4)}
+.btn-chest{background:linear-gradient(90deg,#8b5cf6,#ec4899);color:#fff;box-shadow:0 4px 15px rgba(139,92,246,0.4)}
+.stats{display:flex;gap:10px;margin:10px 0}
+.stat{flex:1;text-align:center;background:rgba(255,255,255,0.05);padding:12px;border-radius:12px}
+.stat b{color:#00ff9d;font-size:18px}
+.small{font-size:11px;text-align:center;opacity:0.6;padding:14px}
+.small a{color:#00ff9d;text-decoration:none;margin:0 8px;font-weight:bold}
+h3{margin-bottom:12px;font-size:18px}
+</style>
 </head>
 <body>
 <div class="app">
 <div class="card header">
 <h1>💰 FIRST NAIRA</h1>
-<p>Fun Mini Game + Rewards</p>
+<p style="opacity:0.8">Play • Spin • Earn Virtual Coins</p>
 <div class="balance" id="balance">₦0</div>
+<p style="font-size:12px;opacity:0.6">Block int-48566 • Reward [userId]</p>
+</div>
+
+<div class="stats">
+<div class="stat"><b id="ads">0</b><br>Ads</div>
+<div class="stat"><b id="spins">0</b><br>Spins</div>
+<div class="stat"><b id="level">1</b><br>Level</div>
 </div>
 
 <div class="card">
-<h3>🎮 Play & Earn</h3>
-<button class="btn" onclick="watchAd()">▶️ Watch Ad +₦10</button>
-<button class="btn spin" onclick="spin()">🎡 Spin Wheel +₦50</button>
-<button class="btn chest" onclick="openChest()">🎁 Open Chest +₦20</button>
+<h3>🎮 Game Zone</h3>
+<button class="btn btn-primary" onclick="watchAd()">▶️ WATCH AD +₦10</button>
+<button class="btn btn-spin" onclick="spin()">🎡 SPIN WHEEL +₦50</button>
+<button class="btn btn-chest" onclick="openChest()">🎁 MYSTERY CHEST +₦20</button>
 </div>
 
 <div class="card small">
-<a href="privacy.html">Privacy Policy</a> |
-<a href="terms.html">Terms</a><br>
-Block: int-48566 | Reward: [userId]
+<a href="privacy.html">Privacy Policy</a> • <a href="terms.html">Terms</a><br><br>
+Optional AdsGram Rewarded Ads • Virtual coins only<br>
+No real money • @First_Naira_ads_bot
 </div>
 </div>
-<script src="app.js"></script>
+
+<script>
+let bal=parseInt(localStorage.getItem('naira_bal')||'0');
+let ads=parseInt(localStorage.getItem('naira_ads')||'0');
+let spins=parseInt(localStorage.getItem('naira_spins')||'0');
+document.getElementById('balance').innerText='₦'+bal;
+document.getElementById('ads').innerText=ads;
+document.getElementById('spins').innerText=spins;
+document.getElementById('level').innerText=Math.floor(bal/100)+1;
+
+let AdController;
+try{AdController=window.Adsgram.init({blockId:"int-48566"})}catch(e){console.log(e)}
+
+function watchAd(){
+if(!AdController){alert('⏳ Ads loading... wait 3 sec and try again');return;}
+AdController.show().then(r=>{
+if(r.done){bal+=10;ads++;save();alert('✅ +₦10 Earned!')}
+else{alert('❌ Watch full ad to earn')}
+}).catch(()=>alert('❌ No ads available now, try later'));
+}
+function spin(){
+if(bal<5){alert('Need ₦5 to spin! Watch an ad');return;}
+bal-=5;bal+=50;spins++;save();alert('🎉 You won ₦50!');
+}
+function openChest(){bal+=20;save();alert('🎁 Chest: +₦20!');}
+function save(){
+localStorage.setItem('naira_bal',bal);
+localStorage.setItem('naira_ads',ads);
+localStorage.setItem('naira_spins',spins);
+document.getElementById('balance').innerText='₦'+bal;
+document.getElementById('ads').innerText=ads;
+document.getElementById('spins').innerText=spins;
+document.getElementById('level').innerText=Math.floor(bal/100)+1;
+}
+const p=new URLSearchParams(location.search);
+if(p.get('userid')){console.log('Reward for',p.get('userid'))}
+</script>
 </body>
 </html>
