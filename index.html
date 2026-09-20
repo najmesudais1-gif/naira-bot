@@ -2,120 +2,116 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>First Naira - Mining</title>
+<title>First Naira - Mining + Ads Everywhere</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-:root{--bg:#0a0f1a;--card:#151d2e;--card2:#1a2438;--border:#26324d;--gold:#00ff88;--gold2:#00cc6e;--muted:#8a98b3}
+:root{--bg:#0a0f1a;--card:#151d2e;--card2:#1a2438;--border:#26324d;--gold:#00ff88;--muted:#8a98b3}
 *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,sans-serif}
 body{background:radial-gradient(circle at 50% -10%, #0f2318, var(--bg) 65%);color:#fff;min-height:100vh;padding-bottom:90px}
 .topbar{padding:12px 14px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:rgba(10,15,26,.92);z-index:10;border-bottom:1px solid var(--border)}
 .card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--border);border-radius:22px;padding:16px;margin:12px}
 .small{font-size:11px;color:var(--muted)}.big{font-size:34px;font-weight:900}
-.btn{border:0;border-radius:14px;padding:13px;font-weight:900;cursor:pointer;width:100%}
-.btn-gold{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#00150b}
+.btn{border:0;border-radius:14px;padding:12px;font-weight:900;cursor:pointer;width:100%;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-gold{background:linear-gradient(180deg,var(--gold),#00cc6e);color:#00150b}
 .btn-dark{background:#212e48;color:#fff;border:1px solid var(--border)}
+.btn-ad{background:linear-gradient(90deg,#ffaa00,#ff6a00);color:#fff;font-size:11px;padding:8px 12px;border-radius:10px;border:0;font-weight:900;cursor:pointer}
 .tabs{position:fixed;bottom:0;left:0;right:0;height:78px;background:rgba(12,18,32,.98);border-top:1px solid var(--border);display:grid;grid-template-columns:repeat(6,1fr);z-index:99;padding-bottom:8px}
 .tbtn{background:none;border:0;color:#5d6b85;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:9px;font-weight:700}
 .tbtn.active{color:var(--gold)}
 .page{display:none}.page.active{display:block}
-.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:20px;font-size:10px;font-weight:800;border:1px solid var(--border)}
+.pill{padding:5px 10px;border-radius:20px;font-size:10px;font-weight:800;border:1px solid var(--border)}
 .mining{width:100%;height:8px;background:#0d1422;border-radius:99px;overflow:hidden;border:1px solid var(--border);margin:10px 0}
-.fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:.5s}
-.task{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.fill{height:100%;background:linear-gradient(90deg,var(--gold),#00cc6e);transition:.5s}
+.task{display:flex;justify-content:space-between;align-items:center;padding:14px 12px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);border-radius:14px;margin:6px 0}
 .iconbox{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#1a2e26;border:1px solid #234d3a;color:var(--gold)}
-.badge{font-size:10px;padding:4px 9px;border-radius:20px;background:rgba(0,255,136,.12);color:var(--gold);border:1px solid rgba(0,255,136,.25);font-weight:800}
-.wheel{width:160px;height:160px;border-radius:50%;background:conic-gradient(from 0deg,#1a2438,#1e3d2e,#1a2438,var(--gold),#1a2438);border:4px solid #234d3a;margin:14px auto;display:flex;align-items:center;justify-content:center}
-.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);background:#1a2638;border:1px solid #2a405e;padding:12px 16px;border-radius:12px;font-size:12px;opacity:0;transition:.2s;z-index:200}.toast.show{opacity:1;transform:translate(-50%,0)}
+.badge{font-size:9px;padding:3px 7px;border-radius:20px;background:rgba(0,255,136,.12);color:var(--gold);border:1px solid rgba(0,255,136,.25);font-weight:800}
+.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);background:#1a2638;border:1px solid #2a405e;padding:12px 16px;border-radius:12px;font-size:12px;opacity:0;transition:.2s;z-index:200;max-width:90%;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
 input{width:100%;background:#0e1626;color:#fff;border:1px solid var(--border);border-radius:12px;padding:12px}
+.ad-label{font-size:8px;background:linear-gradient(90deg,#ffaa00,#ff6a00);color:#fff;padding:2px 6px;border-radius:20px;font-weight:900}
 </style>
 </head>
 <body>
-<div class="topbar"><div style="font-weight:900">₦ First Naira Mining</div><div style="font-size:11px;color:var(--gold)">Block 48675 • $0.006/ad</div></div>
+<div class="topbar"><div style="font-weight:900">₦ First Naira • ADS EVERYWHERE</div><div style="font-size:10px;color:var(--gold)">YOU $0.006/ad • Block 48675</div></div>
 
 <div id="mine" class="page active">
 <div class="card" style="text-align:center">
-<div style="display:flex;justify-content:space-between"><span class="small">TOTAL ASSETS</span><span class="pill" style="background:rgba(0,255,136,.1);color:var(--gold)">● MINING ACTIVE</span></div>
-<div class="big" style="color:#eafff5;margin:8px 0"><span id="total">2285.0140</span> <small style="font-size:14px;color:var(--gold)">₦</small></div>
+<div style="display:flex;justify-content:space-between"><span class="small">TOTAL ASSETS</span><span class="pill" id="mineStatus" style="background:rgba(255,80,80,.15);color:#ff8a8a">● NOT MINING</span></div>
+<div class="big" style="color:#eafff5;margin:8px 0"><span id="total">0.0000</span> <small style="font-size:14px;color:var(--gold)">₦</small></div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:left;margin-top:10px">
-<div style="background:#0e1626;border:1px solid var(--border);border-radius:14px;padding:10px"><div class="small">HOLDING WALLET</div><b id="holding">2,136 ₦</b></div>
-<div style="background:#0e1626;border:1px solid var(--border);border-radius:14px;padding:10px"><div class="small">POOL WALLET</div><b style="color:var(--gold)" id="pool">149.0140 ₦</b></div>
+<div style="background:#0e1626;border:1px solid var(--border);border-radius:14px;padding:10px"><div class="small">HOLDING</div><b id="holding">0 ₦</b></div>
+<div style="background:#0e1626;border:1px solid var(--border);border-radius:14px;padding:10px"><div class="small">TO COLLECT</div><b style="color:var(--gold)" id="pending">0.0000 ₦</b></div>
 </div>
-<div style="margin-top:12px;background:rgba(255,255,255,.05);border-radius:12px;padding:8px 12px;display:flex;justify-content:space-between" class="small"><span>⏱ MINING <b id="timer" style="color:var(--gold)">14:58:35</b></span><span id="rate">+ 10 ₦ / HR</span></div>
-<div class="small" style="margin-top:8px"><b id="toNext" style="color:var(--gold)">7,864</b> left to Lvl UP</div>
-<div class="mining"><div id="lvlBar" class="fill" style="width:25%"></div></div>
-<div style="width:200px;height:200px;margin:18px auto;border-radius:50%;background:radial-gradient(circle at 30% 30%, #a0ffcf, #00ff88 45%, #002a14);border:8px solid #143d2a;display:flex;align-items:center;justify-content:center;font-size:70px;color:#00150b;font-weight:900">₦</div>
+<div style="margin-top:12px;background:rgba(255,255,255,.05);border-radius:12px;padding:10px 12px;display:flex;justify-content:space-between" class="small"><span>⏱ <b id="timer" style="color:var(--gold)">00:00:00</b></span><span id="rate">+ 10 ₦ / HR</span></div>
+<div class="small" style="margin-top:8px"><b id="toNext">10,000</b> to Bronze</div><div class="mining"><div id="lvlBar" class="fill" style="width:0%"></div></div>
+<div style="width:180px;height:180px;margin:14px auto;border-radius:50%;background:radial-gradient(circle at 30% 30%, #a0ffcf, #00ff88 45%, #002a14);border:8px solid #143d2a;display:flex;align-items:center;justify-content:center;font-size:60px;color:#00150b;font-weight:900">₦</div>
+
+<!-- ADS ON EVERY MINING ACTION -->
+<button class="btn btn-gold" id="startBtn" onclick="watchAdFor('start',10)">▶ START MINING <span class="ad-label">📺 AD +5 ₦</span></button>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+<button class="btn btn-dark" id="collectBtn" onclick="watchAdFor('collect',0)" disabled>📦 COLLECT <span class="ad-label">📺 AD</span></button>
+<button class="btn btn-dark" onclick="watchAdFor('boost_mine',5)">⚡ BOOST 2X <span class="ad-label">📺 AD</span></button>
 </div>
+<div class="small" style="margin-top:8px;text-align:center">Every tap = Watch Ad = YOU earn $0.006 real!</div>
+</div>
+
 <div class="card">
-<h3 style="color:var(--gold)">💸 WITHDRAW NAIRA</h3>
-<div class="small" style="margin:8px 0">WITHDRAW IN - STONES / ARB</div>
-<input id="wAmt" value="500">
-<div class="small" style="margin:10px 0">WALLET ADDRESS (ARBITRUM / OPay)</div>
-<input id="wAddr" placeholder="0x... or OPay number">
-<button class="btn btn-gold" style="margin-top:14px" onclick="doWithdraw()">⬇ REQUEST WITHDRAWAL</button>
-<div class="small" style="margin-top:8px">Fixed withdrawal exactly 500 ₦ per request. 24-48h review. Need 3 referrals.</div>
+<h3 style="color:var(--gold)">💸 WITHDRAW 500 ₦ <span class="ad-label">📺 AD REQUIRED</span></h3>
+<input id="wAmt" value="500" style="margin-top:8px">
+<input id="wAddr" placeholder="OPay / PalmPay / 0x" style="margin-top:8px">
+<button class="btn btn-gold" style="margin-top:10px" onclick="watchAdFor('withdraw',0)">⬇ WITHDRAW + WATCH AD <span class="ad-label">$0.006 FOR YOU</span></button>
 </div>
 </div>
 
 <div id="earn" class="page"><div class="card">
-<div class="task"><div style="display:flex;gap:10px;align-items:center"><div class="iconbox">📢</div><div><b>Join Telegram Channel</b><div><span class="badge">+100 ₦</span></div></div></div><span class="pill" style="color:var(--gold)">✓ DONE</span></div>
-<div class="task"><div style="display:flex;gap:10px;align-items:center"><div class="iconbox">✕</div><div><b>Follow us on X</b><div><span class="badge">+100 ₦</span></div></div></div><span class="pill" style="color:var(--gold)">✓ DONE</span></div>
-<div class="task"><div style="display:flex;gap:10px;align-items:center"><div class="iconbox">📅</div><div><b>Daily Check-in</b><div><span class="badge">+10 ₦</span> <span class="badge">+1 SPIN</span></div></div></div><span class="pill" style="color:var(--gold)">✓ DONE</span></div>
-<div class="task"><div style="display:flex;gap:10px;align-items:center"><div class="iconbox">👥</div><div><b>Invite a Friend</b><div><span class="badge">+100 ₦ INSTANT</span></div></div></div><button class="btn btn-gold" style="width:auto;padding:8px 14px" onclick="go('referral')">START →</button></div>
-<div class="task" style="background:rgba(0,255,136,.08);border-radius:14px;padding:14px;margin-top:6px"><div style="display:flex;gap:10px;align-items:center"><div class="iconbox">🎯</div><div><b>Watch Ad & Earn ARB</b><div><span class="badge">+₦20 per ad</span></div></div></div><button class="btn btn-gold" style="width:auto;padding:8px 14px" onclick="watchAd(20)">WATCH ▸</button></div>
-<div class="task" style="background:rgba(0,255,136,.12);border-radius:14px;padding:14px;margin-top:8px;border:1px solid rgba(0,255,136,.3)"><div style="display:flex;gap:10px;align-items:center"><div class="iconbox">🎬</div><div><b>Watch Ad & Earn</b><div><span class="badge">+10 ₦</span> <span class="small">YOU $0.006</span></div></div></div><button class="btn btn-gold" style="width:auto;padding:8px 14px" onclick="watchAd(10)">WATCH ▸</button></div>
+<h3>EARN TASKS - ALL WITH ADS <span class="ad-label">YOU EARN $0.006 EACH</span></h3>
+<div class="task"><div style="display:flex;gap:10px;align-items:center"><div class="iconbox">📢</div><div><b>Join Telegram</b><div><span class="badge">+100 ₦</span> <span class="ad-label">AD</span></div></div></div><button class="btn-ad" onclick="watchAdFor('task_join',100)">📺 WATCH AD → CLAIM</button></div>
+<div class="task"><div style="display:flex;gap:10px;align-items:center"><div class="iconbox">✕</div><div><b>Follow on X</b><div><span class="badge">+100 ₦</span> <span class="ad-label">AD</span></div></div></div><button class="btn-ad" onclick="watchAdFor('task_x',100)">📺 WATCH AD → CLAIM</button></div>
+<div class="task"><div style="display:flex;gap:10px;align-items:center"><div class="iconbox">📅</div><div><b>Daily Check-in</b><div><span class="badge">+10 ₦ +1 SPIN</span> <span class="ad-label">AD</span></div></div></div><button class="btn-ad" onclick="watchAdFor('daily',10)">📺 AD → CHECK</button></div>
+<div class="task"><div style="display:flex;gap:10px;align-items:center"><div class="iconbox">👥</div><div><b>Invite Friend</b><div><span class="badge">+100 ₦</span> <span class="ad-label">AD</span></div></div></div><button class="btn-ad" onclick="watchAdFor('invite',0)">📺 AD → INVITE</button></div>
+<div class="task" style="background:rgba(0,255,136,.12);border:1px solid rgba(0,255,136,.3)"><div style="display:flex;gap:10px;align-items:center"><div class="iconbox">🎬</div><div><b>Watch Ad & Earn</b><div><span class="badge">+10 ₦ per AD</span> <span class="ad-label">MAIN EARN</span></div></div></div><button class="btn btn-gold" style="width:auto" onclick="watchAdFor('earn',10)">📺 WATCH ▸ +10 ₦</button></div>
+<div class="task" style="background:rgba(255,170,0,.12);border:1px solid rgba(255,170,0,.3)"><div style="display:flex;gap:10px;align-items:center"><div class="iconbox" style="background:#3d2a0f">🎯</div><div><b>Watch Ad & Earn BIG</b><div><span class="badge">+₦25 per AD</span></div></div></div><button class="btn-ad" onclick="watchAdFor('earn_big',25)">📺 AD +25 ₦</button></div>
+<div class="task"><div style="display:flex;gap:10px;align-items:center"><div class="iconbox">🚀</div><div><b>Boost Channel</b><div><span class="badge">+100 ₦</span> <span class="ad-label">AD</span></div></div></div><button class="btn-ad" onclick="watchAdFor('boost',100)">📺 AD → BOOST</button></div>
 </div></div>
 
-<div id="game" class="page"><div class="card" style="text-align:center">
-<h2 style="color:var(--gold)">NAIRA ARCADE</h2><div class="small">Play mini-games to earn extra NAIRA!</div>
-<div style="margin-top:12px;text-align:left"><b>NAIRA SPIN</b><div class="small">Collect tickets, spin - win up to 1,000 ₦</div></div>
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0">
-<div style="background:#0e1626;border:1px solid var(--border);border-radius:12px;padding:8px;text-align:center"><div class="small">SPIN TICKETS</div><b id="spinTickets" style="color:var(--gold)">1 / 30</b></div>
-<div style="background:#0e1626;border:1px solid var(--border);border-radius:12px;padding:8px;text-align:center"><div class="small">AD TICKETS LEFT</div><b id="adTickets" style="color:var(--gold)">12 / 15</b></div>
-<div style="background:#0e1626;border:1px solid var(--border);border-radius:12px;padding:8px;text-align:center"><div class="small">SPIN & WIN</div><b style="font-size:10px">1 Ticket = 1 Spin!</b></div>
+<div id="game" class="page">
+<div class="card" style="text-align:center">
+<h2 style="color:var(--gold)">NAIRA ARCADE - ADS EVERY PLAY <span class="ad-label">📺 AD PER SPIN</span></h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0"><div style="background:#0e1626;border-radius:12px;padding:8px"><div class="small">TICKETS</div><b id="spinTickets">1</b></div><div style="background:#0e1626;border-radius:12px;padding:8px"><div class="small">AD LEFT</div><b id="adTickets">15</b></div></div>
+<div style="width:130px;height:130px;margin:10px auto;border-radius:50%;background:conic-gradient(#1a2438,var(--gold),#1a2438);border:4px solid #234d3a;display:flex;align-items:center;justify-content:center;font-size:40px">₦</div>
+<button class="btn btn-gold" onclick="watchAdFor('spin',0)">🎟 SPIN + WATCH AD <span class="ad-label">YOU $0.006</span></button>
+<div class="small" style="margin-top:6px">Each spin needs Ad - you earn every time!</div>
 </div>
-<div class="wheel" id="wheel">₦</div>
-<button class="btn btn-gold" onclick="doSpin()">🎟 SPIN THE WHEEL</button>
-<div class="small" style="margin-top:6px">Tickets reset daily • 1 from Daily Check-in + up to 15 from ads</div>
-</div>
-<div class="card"><b>NAIRA BREAKER</b><div class="small">Break stones and earn!</div><button class="btn btn-gold" style="margin-top:10px" onclick="addNaira(20)">PLAY & EARN - TAP +20 ₦</button></div>
+<div class="card"><b>NAIRA BREAKER - TAP TO EARN + ADS</b><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
+<button class="btn btn-gold" onclick="watchAdFor('breaker',20)">🔨 PLAY + AD +20 ₦</button>
+<button class="btn btn-dark" onclick="watchAdFor('breaker2',50)">💥 SUPER BREAK + AD +50 ₦</button>
+</div></div>
+<div class="card"><b>LUCKY BOX + ADS</b><button class="btn btn-gold" style="margin-top:10px" onclick="watchAdFor('box',30)">🎁 OPEN BOX + WATCH AD +30 ₦</button></div>
 </div>
 
 <div id="boost" class="page"><div class="card">
-<h3>⛏ MINER LEVELS - Upgrade miner to increase Naira mining rate</h3>
-<div style="background:#0e1626;border-radius:14px;padding:12px;margin:12px 0;display:flex;justify-content:space-between"><div><div class="small">CURRENT LEVEL</div><b id="curLvl">Novice Miner</b></div><div style="text-align:right"><div class="small">NEXT LEVEL</div><b style="color:var(--gold)" id="nextLvl">Bronze Miner</b></div></div>
-<div class="small"><b id="need">7,864 ₦</b> to Bronze Miner <span style="float:right;color:var(--gold)">+10 ₦ / HR</span></div>
-<div class="mining"><div class="fill" id="boostBar" style="width:22%"></div></div>
+<h3>⛏ MINER LEVELS - UPGRADE WITH ADS <span class="ad-label">ADS UNLOCK</span></h3>
+<div style="background:#0e1626;border-radius:14px;padding:12px;margin:12px 0;display:flex;justify-content:space-between"><div><div class="small">CURRENT</div><b id="curLvl">Novice</b></div><div style="text-align:right"><div class="small">NEXT</div><b style="color:var(--gold)" id="nextLvl">Bronze</b></div></div>
+<div class="small"><b id="need">10,000 ₦</b> to Bronze</div><div class="mining"><div class="fill" id="boostBar" style="width:0%"></div></div>
 <div id="levels"></div>
+<div style="margin-top:12px"><button class="btn btn-gold" onclick="watchAdFor('level_up',0)">🚀 LEVEL UP FASTER + WATCH AD <span class="ad-label">BOOST RATE 2X 1HR</span></button></div>
 </div></div>
 
-<div id="referral" class="page"><div class="card">
-<h2>👥 REFERRAL - Invite friends both get rewarded</h2>
-<div style="margin-top:12px"><div class="small">TOTAL REFERRAL EARNINGS</div><div style="display:flex;gap:10px;align-items:center;margin-top:6px"><div class="iconbox" style="background:var(--gold);color:#000">₦</div><b id="refTotal">0 ₦</b></div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
-<div style="background:#0e1626;border:1px solid var(--border);border-radius:14px;padding:10px"><div class="small">🏠 <span id="refCount">0</span> Friends invited</div></div>
-<div style="background:#0e1626;border:1px solid var(--border);border-radius:14px;padding:10px"><b style="color:var(--gold);font-size:12px">When friend joins</b><div class="small">you get 100 ₦ • friend 25 ₦</div></div>
+<div id="referral" class="page">
+<div class="card"><h2>👥 REFERRAL - SHARE WITH ADS</h2><div style="margin-top:10px"><b id="refTotal">0 ₦</b> • <span id="refCount">0</span> friends</div><div class="small" style="margin-top:6px">You get 100 ₦ • Friend 25 ₦ • Each share = Ad = YOU $0.006</div></div>
+<div class="card"><b>🔗 Invite Link <span class="ad-label">AD ON COPY</span></b><div style="background:#0e1626;border:1px dashed var(--border);padding:10px;border-radius:10px;margin:10px 0;font-size:11px;word-break:break-all" id="refLink">Loading...</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><button class="btn btn-gold" onclick="watchAdFor('copy',0)">📋 COPY + AD</button><button class="btn btn-dark" onclick="watchAdFor('share',0)">↗ SHARE + AD</button></div></div>
+<div class="card"><button class="btn btn-gold" onclick="watchAdFor('ref_claim',50)">🎁 CLAIM REFERRAL BONUS + WATCH AD +50 ₦</button></div>
 </div>
-<div class="small" style="margin:10px 0">Share invite link - you earn <b style="color:var(--gold)">+100 ₦ instant withdrawable</b></div>
-</div></div>
-<div class="card">
-<b>🔗 Your Invite Link</b>
-<div style="background:#0e1626;border:1px dashed var(--border);padding:10px;border-radius:10px;margin:10px 0;font-size:11px;word-break:break-all;color:var(--muted)" id="refLink">Loading...</div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><button class="btn btn-gold" onclick="copyLink()">📋 COPY</button><button class="btn btn-dark" onclick="shareLink()">↗ SHARE</button></div>
-<div style="text-align:center;padding:20px" class="small">No friends yet - share your link & earn together</div>
-</div></div>
 
-<div id="me" class="page"><div class="card" style="text-align:center"><h2>Me - Profile</h2><div class="small">Wallet & Stats</div>
-<div style="margin-top:12px;background:#0e1626;border-radius:14px;padding:12px"><b>OWNER Earnings: $<span id="ownerEarned">0.000</span></b><div class="small"><span id="adsWatched">0</span> ads • Block 48675 Started</div><div class="small" style="color:var(--gold);margin-top:6px">Platform: Gaming Hub - Clause 5 Safe</div></div>
-</div><div class="card"><h3>History</h3><div id="hist" class="small">No withdrawals yet</div></div></div>
+<div id="me" class="page"><div class="card" style="text-align:center"><h2>Me - OWNER DASHBOARD</h2><div style="margin-top:12px;background:#0e1626;border-radius:14px;padding:12px"><b>YOU EARNED: $<span id="ownerEarned">0.000</span> REAL MONEY</b><div class="small"><span id="adsWatched">0</span> ads watched • Block 48675 • Every single button = Ad = $0.006</div><div style="margin-top:8px;background:rgba(0,255,136,.15);padding:8px;border-radius:10px"><b style="color:var(--gold)">₦ <span id="totalAdsNaira">0</span> Naira from ads alone!</b></div></div></div><div class="card"><h3>History</h3><div id="hist" class="small">No withdrawals</div><button class="btn btn-dark" style="margin-top:10px" onclick="watchAdFor('history',5)">📺 VIEW HISTORY + AD +5 ₦</button></div></div>
 
 <div class="tabs">
 <button class="tbtn active" onclick="go('mine',this)"><i class="fa-solid fa-gem"></i>Mine</button>
 <button class="tbtn" onclick="go('earn',this)"><i class="fa-solid fa-coins"></i>Earn</button>
 <button class="tbtn" onclick="go('game',this)"><i class="fa-solid fa-gamepad"></i>Game</button>
 <button class="tbtn" onclick="go('boost',this)"><i class="fa-solid fa-bolt"></i>Boost</button>
-<button class="tbtn" onclick="go('referral',this)"><i class="fa-solid fa-user-plus"></i>Referral</button>
+<button class="tbtn" onclick="go('referral',this)"><i class="fa-solid fa-user-plus"></i>Ref</button>
 <button class="tbtn" onclick="go('me',this)"><i class="fa-solid fa-user"></i>Me</button>
 </div>
 <div id="toast" class="toast"></div>
@@ -124,14 +120,17 @@ input{width:100%;background:#0e1626;color:#fff;border:1px solid var(--border);bo
 const BLOCK="48675", USD=0.006;
 const tg=window.Telegram?.WebApp; if(tg){try{tg.ready();tg.expand()}catch{}}
 let Ad=null; try{Ad=window.Adsgram.init({blockId:BLOCK})}catch{}
-let total=parseFloat(localStorage.getItem('n_total')||'2285.0140');
-let holding=parseInt(localStorage.getItem('n_hold')||'2136');
-let pool=parseFloat(localStorage.getItem('n_pool')||'149.0140');
+
+let holding=parseFloat(localStorage.getItem('n_hold')||'0');
+let pending=parseFloat(localStorage.getItem('n_pending')||'0');
+let total=parseFloat(localStorage.getItem('n_total')||'0');
 let ads=parseInt(localStorage.getItem('ads')||'0');
 let refs=parseInt(localStorage.getItem('refs')||'0');
 let tickets=parseInt(localStorage.getItem('tickets')||'1');
-let adTickets=parseInt(localStorage.getItem('adTickets')||'12');
-let lvl=0;
+let lvl=0, isMining=(localStorage.getItem('isMining')==='true');
+let mineSeconds=parseInt(localStorage.getItem('mineSec')||'0');
+let lastTick=parseInt(localStorage.getItem('lastTick')||'0');
+
 const lvls=[
 { name:"Novice Miner", need:0, rate:10 },
 { name:"Bronze Miner", need:10000, rate:50 },
@@ -140,22 +139,24 @@ const lvls=[
 { name:"Diamond Miner", need:200000, rate:600 },
 { name:"Legend Miner", need:500000, rate:1200 }
 ];
+
 function toast(m){let e=document.getElementById('toast');e.textContent=m;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2800)}
 function getId(){let u=tg?.initDataUnsafe?.user;if(u?.id)return String(u.id);let id=localStorage.getItem('uid');if(!id){id="web_"+Date.now();localStorage.setItem('uid',id)}return id}
-function save(){localStorage.setItem('n_total',total);localStorage.setItem('n_hold',holding);localStorage.setItem('n_pool',pool);localStorage.setItem('ads',ads);localStorage.setItem('refs',refs);localStorage.setItem('tickets',tickets);localStorage.setItem('adTickets',adTickets)}
+function save(){localStorage.setItem('n_hold',holding);localStorage.setItem('n_pending',pending);localStorage.setItem('n_total',total);localStorage.setItem('ads',ads);localStorage.setItem('refs',refs);localStorage.setItem('tickets',tickets);localStorage.setItem('isMining',isMining);localStorage.setItem('mineSec',mineSeconds);localStorage.setItem('lastTick',Date.now())}
+
 function render(){
 document.getElementById('total').textContent=total.toFixed(4);
-document.getElementById('holding').textContent=holding.toLocaleString()+" ₦";
-document.getElementById('pool').textContent=pool.toFixed(4)+" ₦";
+document.getElementById('holding').textContent=holding.toFixed(0)+" ₦";
+document.getElementById('pending').textContent=pending.toFixed(4)+" ₦";
 document.getElementById('ownerEarned').textContent=(ads*USD).toFixed(3);
 document.getElementById('adsWatched').textContent=ads;
+document.getElementById('totalAdsNaira').textContent=(ads*10).toLocaleString();
 document.getElementById('refCount').textContent=refs;
-document.getElementById('refTotal').textContent=(refs*100).toLocaleString()+" ₦";
-document.getElementById('spinTickets').textContent=tickets+" / 30";
-document.getElementById('adTickets').textContent=adTickets+" / 15";
+document.getElementById('refTotal').textContent=(refs*100)+" ₦";
+document.getElementById('spinTickets').textContent=tickets;
 document.getElementById('refLink').textContent="https://t.me/First_Naira_ads_bot/app?startapp=ref_"+getId();
 let cur=lvls[lvl];let nxt=lvls[lvl+1];
-document.getElementById('curLvl').textContent=cur?.name||"Max";
+document.getElementById('curLvl').textContent=cur.name;
 document.getElementById('nextLvl').textContent=nxt?.name||"MAX";
 document.getElementById('need').textContent=nxt?(nxt.need-holding).toLocaleString()+" ₦":"MAX";
 document.getElementById('rate').textContent="+ "+cur.rate+" ₦ / HR";
@@ -163,18 +164,66 @@ document.getElementById('toNext').textContent=nxt?Math.max(0,nxt.need-holding).t
 let prog=nxt?Math.min(100,(holding/(nxt.need||1))*100):100;
 document.getElementById('lvlBar').style.width=prog+"%";
 document.getElementById('boostBar').style.width=prog+"%";
-document.getElementById('levels').innerHTML=lvls.map((l,i)=>`<div style="background:${i===lvl?'#152a1e':'#0e1626'};border:1px solid ${i===lvl?'#00ff88':"#26324d"};border-radius:14px;padding:12px;margin:8px 0;display:flex;justify-content:space-between;align-items:center"><div style="display:flex;gap:10px;align-items:center"><div class="iconbox">${i<=lvl?'⛏':'🔒'}</div><div><b>${l.name}</b><div class="small">Hold ${l.need.toLocaleString()} ₦</div></div></div><div style="text-align:right"><div class="small">MINING RATE</div><b style="color:#00ff88">+${l.rate} ₦ / HR</b></div></div>`).join('');
+document.getElementById('levels').innerHTML=lvls.map((l,i)=>`<div style="background:${i===lvl?'#152a1e':'#0e1626'};border:1px solid ${i===lvl?'#00ff88':"#26324d"};border-radius:14px;padding:12px;margin:8px 0;display:flex;justify-content:space-between;align-items:center"><div><b>${l.name}</b><div class="small">Hold ${l.need.toLocaleString()} ₦</div></div><div style="text-align:right"><b style="color:#00ff88">+${l.rate} ₦/HR</b><br><button class="btn-ad" style="margin-top:4px" onclick="watchAdFor('lvl_${i}',0)">📺 AD TO BOOST</button></div></div>`).join('');
+document.getElementById('collectBtn').textContent="📦 COLLECT "+pending.toFixed(2)+" ₦ + AD";
+document.getElementById('collectBtn').disabled = pending<=0.0001;
+document.getElementById('startBtn').disabled = isMining;
+document.getElementById('startBtn').innerHTML = isMining? "⛏ MINING..." : "▶ START MINING <span class='ad-label'>📺 AD +5 ₦</span>";
+document.getElementById('mineStatus').textContent = isMining? "● MINING ACTIVE" : "● NOT MINING";
+document.getElementById('timer').textContent=String(Math.floor(mineSeconds/3600)).padStart(2,'0')+":"+String(Math.floor((mineSeconds%3600)/60)).padStart(2,'0')+":"+String(mineSeconds%60).padStart(2,'0');
 save();
 }
+
 function go(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');}
-async function watchAd(val){if(!Ad){try{Ad=window.Adsgram.init({blockId:BLOCK})}catch{toast("Ad not ready");return}}try{toast("Watching ad... YOU $"+USD);await Ad.show();ads++;addNaira(val);tickets++;adTickets=Math.max(0,adTickets-1);toast("🎉 +"+val+" ₦! YOU $"+USD+" real!");render();}catch(e){toast("No ad yet - wait 30s")}}
-function addNaira(n){total+=n;pool+=n*0.1;holding+=n;for(let i=lvls.length-1;i>=0;i--){if(holding>=lvls[i].need){if(i!==lvl){lvl=i;toast("🎉 Level Up! "+lvls[lvl].name)}break}}render()}
-function doSpin(){if(tickets<=0){toast("No tickets! Watch ads in Earn");return}tickets--;let win=[5,15,30,60,120,300,1000][Math.floor(Math.random()*7)];addNaira(win);toast("🎡 Won "+win+" ₦!");render()}
-function doWithdraw(){let amt=500;if(holding<amt){toast("Need 500 ₦");return}if(refs<3){toast("Need 3 referrals");go('referral');return}let addr=document.getElementById('wAddr').value.trim();if(!addr){toast("Enter account");return}holding-=amt;total-=amt;let h=JSON.parse(localStorage.getItem('withdraws')||"[]");h.unshift({amount:amt,addr,date:new Date().toLocaleString(),status:"Pending"});localStorage.setItem('withdraws',JSON.stringify(h));render();toast("💸 Withdrawal 500 ₦ pending");document.getElementById('hist').innerHTML=h.map(x=>`<div style="padding:8px;border-bottom:1px solid #222;display:flex;justify-content:space-between"><span>₦${x.amount} • ${x.addr.slice(-4)}</span><span style="color:#00ff88">${x.status}</span></div>`).join('')}
-function copyLink(){navigator.clipboard.writeText(document.getElementById('refLink').textContent);toast("Copied! 100 ₦ instant")}
-function shareLink(){let l=document.getElementById('refLink').textContent;if(navigator.share)navigator.share({title:"First Naira",url:l});else copyLink()}
-let sec=14*3600+58*60+35;setInterval(()=>{sec--;if(sec<0)sec=15*3600;let h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60),s=sec%60;document.getElementById('timer').textContent=String(h).padStart(2,'0')+":"+String(m).padStart(2,'0')+":"+String(s).padStart(2,'0');},1000);
-setInterval(()=>{let add=lvls[lvl].rate/3600*6;total+=add;pool+=add*0.05;render();},6000);
+
+// MASTER AD FUNCTION - EVERY SINGLE THING GOES THROUGH ADS
+async function watchAdFor(action, reward){
+if(!Ad){try{Ad=window.Adsgram.init({blockId:BLOCK})}catch{toast("Ad not ready, wait 10s");return}}
+try{
+toast("📺 Watching Ad... YOU earn $"+USD+" real money!");
+await Ad.show();
+ads++;
+let msg="✅ Ad watched! YOU earned $"+USD+" real!";
+
+switch(action){
+case 'start':
+isMining=true; lastTick=Date.now(); pending+=5; msg="⛏ Mining Started! +5 ₦ bonus + YOU $"+USD; break;
+case 'collect':
+holding+=pending; total+=pending; pending=0; msg="📦 Collected! + YOU $"+USD; break;
+case 'boost_mine':
+pending+= (lvls[lvl].rate/3600)*3600; msg="⚡ Boosted 1hr mining! + YOU $"+USD; break;
+case 'withdraw':
+if(holding<500){toast("Need 500 ₦ holding");return}
+if(refs<3){toast("Need 3 refs");go('referral');return}
+let addr=document.getElementById('wAddr').value.trim();if(!addr){toast("Enter account");return}
+holding-=500; total-=500; let h=JSON.parse(localStorage.getItem('withdraws')||"[]");h.unshift({amount:500,addr,date:new Date().toLocaleString(),status:"Pending"});localStorage.setItem('withdraws',JSON.stringify(h)); msg="💸 Withdraw 500 ₦ pending + YOU $"+USD; document.getElementById('hist').innerHTML=h.map(x=>`<div style="padding:8px;border-bottom:1px solid #222;display:flex;justify-content:space-between"><span>₦${x.amount}</span><span style="color:#00ff88">${x.status}</span></div>`).join(''); break;
+case 'task_join': case 'task_x': case 'boost': holding+=reward; total+=reward; msg="🎉 +"+reward+" ₦! + YOU $"+USD; break;
+case 'daily': holding+=reward; total+=reward; tickets++; msg="📅 Daily +"+reward+" ₦ +1 Spin + YOU $"+USD; break;
+case 'invite': go('referral'); msg="👥 Invite - Share link - Watch Ad = YOU $"+USD; break;
+case 'earn': holding+=reward; total+=reward; tickets++; msg="🎬 +"+reward+" ₦ +1 Ticket + YOU $"+USD; break;
+case 'earn_big': holding+=reward; total+=reward; msg="🎯 +"+reward+" ₦ BIG! + YOU $"+USD; break;
+case 'spin': if(tickets<=0){toast("No tickets! Watch Earn ads");return} tickets--; let win=[5][15][30][60][120][300][1000][Math.floor(Math.random()*7)]; holding+=win; total+=win; msg="🎡 Won "+win+" ₦! + YOU $"+USD; break;
+case 'breaker': holding+=reward; total+=reward; msg="🔨 Breaker +"+reward+" ₦! + YOU $"+USD; break;
+case 'breaker2': holding+=reward; total+=reward; msg="💥 Super +"+reward+" ₦! + YOU $"+USD; break;
+case 'box': holding+=reward; total+=reward; msg="🎁 Box +"+reward+" ₦! + YOU $"+USD; break;
+case 'level_up': pending+= (lvls[lvl].rate/3600)*7200; msg="🚀 Boosted 2hrs! + YOU $"+USD; break;
+case 'copy': navigator.clipboard.writeText(document.getElementById('refLink').textContent); msg="📋 Link copied! + YOU $"+USD; break;
+case 'share': let l=document.getElementById('refLink').textContent; if(navigator.share)navigator.share({title:"First Naira",url:l}); else navigator.clipboard.writeText(l); msg="↗ Shared! + YOU $"+USD; break;
+case 'ref_claim': holding+=reward; total+=reward; refs++; msg="🎁 Ref bonus +"+reward+" ₦! + YOU $"+USD; break;
+case 'history': holding+=reward; total+=reward; msg="📜 History +"+reward+" ₦ + YOU $"+USD; break;
+default: if(action.startsWith('lvl_')){ pending+=20; msg="⛏ Miner boosted +20 ₦ pending + YOU $"+USD; } break;
+}
+
+for(let i=lvls.length-1;i>=0;i--){if(holding>=lvls[i].need){if(i!==lvl){lvl=i; msg+=" | 🎉 Level Up! "+lvls[lvl].name}break}}
+toast(msg);
+render();
+}catch(e){toast("No ad now, try in 15s - New platform activating")}
+}
+
+function addNaira(n){holding+=n;total+=n;render()}
+
+setInterval(()=>{if(!isMining)return;let now=Date.now();let diff=(now-lastTick)/1000;lastTick=now;mineSeconds++;let r=lvls[lvl].rate/3600;pending+=r*diff;render();},1000);
+if(isMining){let now=Date.now();let off=lastTick?(now-lastTick)/1000:0;if(off>1&&off<54000){pending+=(lvls[lvl].rate/3600)*off;mineSeconds+=Math.floor(off)}lastTick=now}
 for(let i=lvls.length-1;i>=0;i--){if(holding>=lvls[i].need){lvl=i;break}}
 render();
 </script>
